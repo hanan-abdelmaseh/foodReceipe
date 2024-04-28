@@ -1,0 +1,102 @@
+<!--login component-->
+<!--need to handle validation for inputs -->
+<!--need to add notification after logging in sucessfully  done -->
+<!--need to handle routing between components  done-->
+<!--
+
+  shimaasaeed173@yahoo.com
+Pass: test@Test1
+-->
+<section class="auth">
+  <div class="container">
+    <div class="row  align-items-center justify-content-center vh-100">
+      <div class="col-md-8 ">
+        <div class="auth-card">
+          <div class="logo w-50 text-center mx-auto">
+            <img src="../../assets/images/logo.svg" alt>
+          </div>
+          <div class="auth-card-body ">
+            <h1> Log In</h1>
+            <p>Welcome Back! Please enter your details</p>
+            <!--reactive forms -->
+            <form [formGroup]="loginForm" (ngSubmit)="userLogin(loginForm)">
+              <div class="input-group ">
+                <span class="input-group-text" id="basic-addon1">
+
+                  <i class="fa fa-mobile" aria-hidden="true"></i>
+                </span>
+                <input type="text" class="form-control mb-3"
+                  placeholder="Enter your E-mail"
+                  formControlName="email"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1">
+
+              
+
+              </div>
+                  <!--error -->
+                  <span
+                  *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || 
+             loginForm.controls['email'].touched)" class="error">
+                  <span *ngIf="loginForm.controls['email'].errors?.['required']">
+                    *Email is required.
+                  </span>
+                </span>
+                <span
+                *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || 
+           loginForm.controls['email'].touched)" class="error">
+                <span *ngIf="loginForm.controls['email'].errors?.['email']">
+                  *Please Enter Valid Email.
+                </span>
+              </span>
+
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+                </span>
+                <input
+                  class="form-control passinput"
+                  formControlName="password" [type]="isShown?'password' :'text'"
+                  placeholder="Password" aria-label="Password"
+                  aria-describedby="basic-addon1">
+                <span class="input-group-text "
+                  (click)="isShown=!isShown">
+                  <i class="fa " [class]="isShown? 'fa-eye-slash':'fa-eye'"
+                    aria-hidden="true"></i>
+                </span>
+              </div>
+               <!--error  for password-->
+               <span
+               *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || 
+          loginForm.controls['password'].touched)" class="error">
+               <span *ngIf="loginForm.controls['password'].errors?.['required']">
+                 *Password is required.
+               </span>
+             </span>
+             <!--
+             <span
+             *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || 
+        loginForm.controls['password'].touched)" class="error">
+             <span *ngIf="loginForm.controls['password'].errors?.['pattern']">
+               *pattern.
+             </span>
+           </span>
+          -->
+              <div class="links ">
+                <a class="text-secondary-color"
+                  (click)="navigateToRegister()">Register Now?</a>
+                <a class="text-main" (click)="navigateToForgetPassword()">
+                  Forgot Password?</a>
+              </div>
+              <button class="primary w-100"  [disabled]="loginForm.invalid"
+                type="submit">Login</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

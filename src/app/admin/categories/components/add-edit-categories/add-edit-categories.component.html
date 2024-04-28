@@ -1,0 +1,24 @@
+
+
+<div class="container">
+  <div class="row justify-content-center align-items-center  ">
+      <div class="col-md-12 ">
+          <div class="DeleteContent p-5">
+             <i class="fa fa-close" aria-hidden="true" (click)="onNoClick()"></i>
+             
+               
+                <h6 class="mt-2">
+                  Add Your Category
+                </h6>                
+                  <input class="form-control" placeholder="Category Name" matInput [(ngModel)]="data.name">
+                
+                <div class="text-end mt-4">
+                  <button type="button" class="btn primary"
+                   [mat-dialog-close]="data.name">Save</button>
+                </div>
+                
+          </div>
+      </div>
+  </div>
+</div>
+

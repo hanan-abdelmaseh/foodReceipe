@@ -1,0 +1,22 @@
+<section class="bg-main-dark leftSidebar vh-100">
+    <div>
+        <img src="../../../../assets/images/sidebarLogo.svg" class="w-100" alt="">
+    </div>
+    <div class="mt-5">
+        <ul class="px-0">
+            <!--we made ng container as we can't add ng for and ngif at the same element-->
+            <ng-container  *ngFor="let item of menu" >
+                <li  *ngIf="item.isActive">
+                    <a [routerLink]="item.link" class="item mb-1" routerLinkActive="active">
+                        <span> <i [class]="item.icon" aria-hidden="true"></i></span>
+                        <span>{{item.text}}</span>
+                    </a>
+                  
+                </li>
+
+            </ng-container>
+           
+            
+        </ul>
+    </div>
+</section>

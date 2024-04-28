@@ -1,0 +1,80 @@
+<section class="auth">
+    <div class="container">
+        <div class="row  align-items-center justify-content-center vh-100">
+            <div class="col-md-8 ">
+                <div class="auth-card">
+                    <div class="logo w-50 text-center mx-auto">
+                        <img src="../../assets/images/logo.svg" alt>
+                    </div>
+                    <div class="auth-card-body ">
+                        <h1>
+                           Verify Your Account
+                        </h1>
+                        <p>Please Enter Your Otp or Check Your Inbox</p>
+                        <form [formGroup]="verifyForm"
+                            (ngSubmit)="verify(verifyForm)">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"
+                                    id="basic-addon1">
+
+                                    <i class="fa fa-mobile"
+                                        aria-hidden="true"></i>
+                                </span>
+                                <input type="text" class="form-control"
+                                    formControlName="email"
+                                    placeholder="E-mail" aria-label="email"
+                                    aria-describedby="basic-addon1">
+                            </div>
+                            <!--error  for email-->
+                            <span
+                                *ngIf="verifyForm.controls['email'].invalid && (verifyForm.controls['email'].dirty || 
+                                verifyForm.controls['email'].touched)" class="error">
+                                <span
+                                    *ngIf="verifyForm.controls['email'].errors?.['required']">
+                                    *Email is required.
+                                </span>
+                            </span>
+                            <span
+                                *ngIf="verifyForm.controls['email'].invalid && (verifyForm.controls['email'].dirty || 
+                                 verifyForm.controls['email'].touched)" class="error">
+                                <span
+                                    *ngIf="verifyForm.controls['email'].errors?.['email']">
+                                    *Please Enter Valid Email.
+                                </span>
+                            </span>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"
+                                    id="basic-addon1">
+
+                                    <i class="fa fa-lock"
+                                        aria-hidden="true"></i>
+                                </span>
+                                <input type="text"
+                                    class="form-control"
+                                    formControlName="code"
+                                    placeholder="OTP" aria-label="otp"
+                                    aria-describedby="basic-addon1">
+                            </div>
+                            <!--error for OTP -->
+                            <span
+                                *ngIf="verifyForm.controls['code'].invalid && 
+                                 (verifyForm.controls['code'].dirty || 
+                                 verifyForm.controls['code'].touched)"
+                                class="error">
+                                <span
+                                    *ngIf="verifyForm.controls['code'].errors?.['required']">
+                                    *OTP is required.
+                                </span>
+                            </span>
+
+                            <button class="primary w-100" type="submit" [disabled]="verifyForm.invalid">Verify 
+                            </button>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

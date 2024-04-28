@@ -1,0 +1,239 @@
+<!--register-->
+
+<section class="auth">
+  <div class="container">
+    <div class="row  align-items-center justify-content-center vh-100">
+      <div class="col-md-8 ">
+        <div class="auth-card">
+          <div class="logo w-50 text-center mx-auto">
+            <img src="../../assets/images/logo.svg" alt>
+          </div>
+          <div class="auth-card-body ">
+            <h1>
+              Register
+            </h1>
+            <p>Welcome Back! Please enter your details</p>
+            <form [formGroup]="registerForm"
+              (ngSubmit)="userRegister(registerForm)">
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">
+
+                      <i class="fa fa-mobile" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" class="form-control"
+                      formControlName="userName"
+                      placeholder="User Name"
+                      aria-label="Username" aria-describedby="basic-addon1">
+                  </div>
+
+                  <!--error  for name-->
+                  <span
+                    *ngIf="registerForm.controls['userName'].invalid && (registerForm.controls['userName'].dirty || 
+          registerForm.controls['userName'].touched)" class="error">
+                    <span
+                      *ngIf="registerForm.controls['userName'].errors?.['required']">
+                      *The user Name must contain characters and end with
+                      numbers without spaces
+                    </span>
+                  </span>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">
+
+                      <i class="fa fa-mobile" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" class="form-control"
+                      formControlName="email"
+                      placeholder="Enter your E-mail"
+                      aria-label="Username" aria-describedby="basic-addon1">
+                  </div>
+                  <!--error  for email required-->
+                  <span
+                    *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || 
+          registerForm.controls['email'].touched)" class="error">
+                    <span
+                      *ngIf="registerForm.controls['email'].errors?.['required']">
+                      *Email is Rquired
+                    </span>
+                  </span>
+
+                  <!--error  for email-->
+                  <span
+                    *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || 
+         registerForm.controls['email'].touched)" class="error">
+                    <span
+                      *ngIf="registerForm.controls['email'].errors?.['email']">
+                      *Please add Valid Email
+                    </span>
+                  </span>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">
+
+                      <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" class="form-control"
+                      placeholder="Country"
+                      formControlName="country"
+                      aria-label="Username" aria-describedby="basic-addon1">
+                      
+                  </div>
+                  <!--error for country-->
+                  <span
+                  *ngIf="registerForm.controls['country'].invalid && 
+                  (registerForm.controls['country'].dirty || 
+             registerForm.controls['country'].touched)" class="error">
+                  <span *ngIf="registerForm.controls['country'].errors?.['required']">
+                    *Country is Rquired
+                  </span>
+                </span>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">
+
+                      <i class="fa fa-mobile" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" class="form-control"
+                      formControlName="phoneNumber"
+                      placeholder="Phone Number" aria-label="Username"
+                      aria-describedby="basic-addon1">
+                      
+                  </div>
+                   <!--error for phone number-->
+                   <span
+                   *ngIf="registerForm.controls['phoneNumber'].invalid && 
+                   (registerForm.controls['phoneNumber'].dirty || 
+              registerForm.controls['phoneNumber'].touched)" class="error">
+                   <span *ngIf="registerForm.controls['phoneNumber'].errors?.['required']">
+                     *Phone Number is Rquired
+                   </span>
+                 </span>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">
+
+                      <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                    <input [type]="isShown?'password' :'text'"
+                     class="form-control"
+                      formControlName="password"
+                      placeholder="Password" aria-label="Username"
+                      aria-describedby="basic-addon1">
+                      <span class="input-group-text  "
+                      (click)="isShown=!isShown">
+                      <i class="fa " [class]="isShown? 'fa-eye-slash':'fa-eye'"
+                        aria-hidden="true"></i>
+                    </span>
+                  </div>
+                    <!--error for password-->
+                    <span
+                    *ngIf="registerForm.controls['password'].invalid && 
+                    (registerForm.controls['password'].dirty || 
+               registerForm.controls['password'].touched)" class="error">
+                    <span *ngIf="registerForm.controls['password'].errors?.['required']">
+                      *Password  is Rquired
+                    </span>
+                  </span>
+                  <span
+                  *ngIf="registerForm.controls['password'].invalid && 
+                  (registerForm.controls['password'].dirty || 
+             registerForm.controls['password'].touched)" class="error">
+                  <span *ngIf="registerForm.controls['password'].errors?.['pattern']">
+                    *The password must include at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 6 characters long.
+                  </span>
+                </span>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">
+
+                      <i class="fa fa-mobile" aria-hidden="true"></i>
+                    </span>
+                    <input [type]="isconfirm?'password' :'text'" class="form-control"
+                      formControlName="confirmPassword"
+                      placeholder="confirm-password" aria-label="Username"
+                      aria-describedby="basic-addon1">
+                      <span class="input-group-text  "
+                      (click)="isconfirm=!isconfirm">
+                      <i class="fa " [class]="isconfirm? 'fa-eye-slash':'fa-eye'"
+                        aria-hidden="true"></i>
+                    </span>
+                  </div>
+                   <!--error for confirm password-->
+                   <span
+                   *ngIf="registerForm.controls['confirmPassword'].invalid && 
+                   (registerForm.controls['confirmPassword'].dirty || 
+              registerForm.controls['confirmPassword'].touched)" class="error">
+                   <span *ngIf="registerForm.controls['confirmPassword'].errors?.['required']">
+                     * Confirm Password  is Rquired
+                   </span>
+                 </span>
+                 <span
+                 *ngIf="registerForm.controls['confirmPassword'].invalid && 
+                 (registerForm.controls['confirmPassword'].dirty || 
+            registerForm.controls['confirmPassword'].touched)" class="error">
+                 <span *ngIf="registerForm.controls['confirmPassword'].errors?.['pattern']">
+                   *The password must include at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 6 characters long.
+                 </span>
+               </span>
+                </div>
+                <!--for image -->
+
+              </div>
+              <!--for image -->
+              <div class="row">
+                <div class="col-md-12 ">
+
+                  <!-- 
+                             [multiple]="false" to upload 1 image
+                        accept="image/jpeg,image/jpg,image/png,image/gif" to upload just images 
+                          -->
+                         
+                            <ngx-dropzone (change)="onSelect($event)"
+                            [multiple]="false"
+                            accept="image/jpeg,image/jpg,image/png,image/gif">
+                            <ngx-dropzone-label>Add Your Photo
+                              <i class="fa fa-upload" aria-hidden="true"></i>
+                            </ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files"
+                              [removable]="true" (removed)="onRemove(f)">
+                              <ngx-dropzone-label>{{ f.name }} </ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                          </ngx-dropzone>
+                          </div>
+                
+
+        
+              </div>
+              <div class="links">
+                <a (click)="navigateToLogin()" class="text-main"> Login Now
+                  ?</a>
+
+                <a  (click)="navigateToverify()" class="text-secondary-color"
+                >Have Code?</a>
+               
+              </div>
+              
+
+             
+
+              <div class=" d-flex justify-content-center align-items-center">
+                <button class="primary w-75 m-auto" [disabled]="registerForm.invalid"
+                  type="submit">Register</button>
+              </div>
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
