@@ -79,11 +79,12 @@
 
                         </tbody>
                   </table>
-                  <mat-paginator [length]="listOfCAtegories.totalNumberOfRecords "
+                  <mat-paginator #paginator
+              [length]="listOfCAtegories.totalNumberOfRecords "
               [pageSize]="listOfCAtegories.pageSize "
               [pageIndex]="listOfCAtegories.pageNumber"
               [pageSizeOptions]="[5, 10, 25, 100]"
-              (pageChanged)="getPAgination($event)"
+              
                [(ngModel)]="listOfCAtegories.pageNumber"
 
 

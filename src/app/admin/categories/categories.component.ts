@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoryService } from './services/category.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditCategoriesComponent } from './components/add-edit-categories/add-edit-categories.component';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
 import { ViewComponent } from 'src/app/shared/components/view/view.component';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-categories',
@@ -18,8 +18,6 @@ export class CategoriesComponent  implements OnInit{
   listOfCAtegories :any ;
   //dialog 
   categoryItem: string= '' ;
-
-
 
   constructor(private _CategoryService:CategoryService , public dialog: MatDialog ,
       private toastr: ToastrService){}
@@ -38,7 +36,7 @@ export class CategoriesComponent  implements OnInit{
              console.log(this.listOfCAtegories);
              this.pageNumber =this.listOfCAtegories.pageNumber ;
              this.pageSize= this.listOfCAtegories.pageSize;
-
+            
         },
         error:()=>{
 
@@ -109,7 +107,7 @@ export class CategoriesComponent  implements OnInit{
 
 
   //get by id
-  //view category 
+  //view category  not completetd
   openViewDialog(viewId:number):void {
     const dialogRef = this.dialog.open(ViewComponent, {
       data: {id:viewId},
@@ -173,15 +171,6 @@ export class CategoriesComponent  implements OnInit{
       }
     });
   }
-   currentPAge:number=0
-  //pagination 
-  getPAgination(pageEvent:any){
-    if(this.listOfCAtegories.pageNumber !== pageEvent.page)
-      {
-        this.listOfCAtegories.pageNumber = pageEvent.page;
-        this.getAllCategories();
-        console.log("hello")
-      }
-  }
-
+ //pagination 
+    
 }
