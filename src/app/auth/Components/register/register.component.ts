@@ -29,6 +29,8 @@ export class RegisterComponent implements OnInit {
    isShown:boolean = true;
    isconfirm:boolean= true
   files: File[] = [];
+
+
   constructor(private _AuthService: AuthService , private _Router:Router ,
      private toastr: ToastrService
   ) { }

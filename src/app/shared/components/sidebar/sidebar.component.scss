@@ -1,13 +1,10 @@
-.leftSidebar{
-    border: none;
-    border-top-right-radius: 2rem;
-}
+
 .item{
     color: #fff;
     text-decoration: none;
     display: block;
  
-    padding:5px 20px  ;
+   // padding:5px 20px  ;
     span{
    margin: 0px 5px;
     }
@@ -15,4 +12,8 @@
 
 .active{
     background-color: #00924e26;
+}
+ul
+{
+    list-style-type: none;
 }

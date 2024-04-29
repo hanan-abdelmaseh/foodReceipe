@@ -15,7 +15,23 @@
             <p>Welcome Back! Please enter your details</p>
             <form [formGroup]="registerForm"
               (ngSubmit)="userRegister(registerForm)">
-
+              <!--for image -->
+              <div class="row mb-3">
+                <div class="col-md-12 text-center d-flex justify-content-center align-items-center">
+                  <ngx-dropzone (change)="onSelect($event)"
+              
+                    accept="image/jpeg,image/jpg,image/png,image/gif">
+                    <ngx-dropzone-label>Photo
+                      <i class="fa fa-upload" aria-hidden="true"></i>
+                    </ngx-dropzone-label>
+                    <ngx-dropzone-image-preview [removable]="true"     
+                      (removed)="onRemove(f)" ngProjectAs="ngx-dropzone-preview"
+                      *ngFor="let f of files" [file]="f">
+                      <ngx-dropzone-label>{{ f.name }} </ngx-dropzone-label>
+                    </ngx-dropzone-image-preview>
+                  </ngx-dropzone>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-md-6">
                   <div class="input-group mb-3">
@@ -81,17 +97,18 @@
                       placeholder="Country"
                       formControlName="country"
                       aria-label="Username" aria-describedby="basic-addon1">
-                      
+
                   </div>
                   <!--error for country-->
                   <span
-                  *ngIf="registerForm.controls['country'].invalid && 
+                    *ngIf="registerForm.controls['country'].invalid && 
                   (registerForm.controls['country'].dirty || 
              registerForm.controls['country'].touched)" class="error">
-                  <span *ngIf="registerForm.controls['country'].errors?.['required']">
-                    *Country is Rquired
+                    <span
+                      *ngIf="registerForm.controls['country'].errors?.['required']">
+                      *Country is Rquired
+                    </span>
                   </span>
-                </span>
                 </div>
                 <div class="col-md-6">
                   <div class="input-group mb-3">
@@ -103,17 +120,18 @@
                       formControlName="phoneNumber"
                       placeholder="Phone Number" aria-label="Username"
                       aria-describedby="basic-addon1">
-                      
+
                   </div>
-                   <!--error for phone number-->
-                   <span
-                   *ngIf="registerForm.controls['phoneNumber'].invalid && 
+                  <!--error for phone number-->
+                  <span
+                    *ngIf="registerForm.controls['phoneNumber'].invalid && 
                    (registerForm.controls['phoneNumber'].dirty || 
               registerForm.controls['phoneNumber'].touched)" class="error">
-                   <span *ngIf="registerForm.controls['phoneNumber'].errors?.['required']">
-                     *Phone Number is Rquired
-                   </span>
-                 </span>
+                    <span
+                      *ngIf="registerForm.controls['phoneNumber'].errors?.['required']">
+                      *Phone Number is Rquired
+                    </span>
+                  </span>
                 </div>
                 <div class="col-md-6">
                   <div class="input-group mb-3">
@@ -122,33 +140,37 @@
                       <i class="fa fa-lock" aria-hidden="true"></i>
                     </span>
                     <input [type]="isShown?'password' :'text'"
-                     class="form-control"
+                      class="form-control"
                       formControlName="password"
                       placeholder="Password" aria-label="Username"
                       aria-describedby="basic-addon1">
-                      <span class="input-group-text  "
+                    <span class="input-group-text  "
                       (click)="isShown=!isShown">
                       <i class="fa " [class]="isShown? 'fa-eye-slash':'fa-eye'"
                         aria-hidden="true"></i>
                     </span>
                   </div>
-                    <!--error for password-->
-                    <span
+                  <!--error for password-->
+                  <span
                     *ngIf="registerForm.controls['password'].invalid && 
                     (registerForm.controls['password'].dirty || 
                registerForm.controls['password'].touched)" class="error">
-                    <span *ngIf="registerForm.controls['password'].errors?.['required']">
-                      *Password  is Rquired
+                    <span
+                      *ngIf="registerForm.controls['password'].errors?.['required']">
+                      *Password is Rquired
                     </span>
                   </span>
                   <span
-                  *ngIf="registerForm.controls['password'].invalid && 
+                    *ngIf="registerForm.controls['password'].invalid && 
                   (registerForm.controls['password'].dirty || 
              registerForm.controls['password'].touched)" class="error">
-                  <span *ngIf="registerForm.controls['password'].errors?.['pattern']">
-                    *The password must include at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 6 characters long.
+                    <span
+                      *ngIf="registerForm.controls['password'].errors?.['pattern']">
+                      *The password must include at least one lowercase letter,
+                      one uppercase letter, one digit, one special character,
+                      and be at least 6 characters long.
+                    </span>
                   </span>
-                </span>
                 </div>
                 <div class="col-md-6">
                   <div class="input-group mb-3">
@@ -156,76 +178,55 @@
 
                       <i class="fa fa-mobile" aria-hidden="true"></i>
                     </span>
-                    <input [type]="isconfirm?'password' :'text'" class="form-control"
+                    <input [type]="isconfirm?'password' :'text'"
+                      class="form-control"
                       formControlName="confirmPassword"
                       placeholder="confirm-password" aria-label="Username"
                       aria-describedby="basic-addon1">
-                      <span class="input-group-text  "
+                    <span class="input-group-text  "
                       (click)="isconfirm=!isconfirm">
-                      <i class="fa " [class]="isconfirm? 'fa-eye-slash':'fa-eye'"
+                      <i class="fa "
+                        [class]="isconfirm? 'fa-eye-slash':'fa-eye'"
                         aria-hidden="true"></i>
                     </span>
                   </div>
-                   <!--error for confirm password-->
-                   <span
-                   *ngIf="registerForm.controls['confirmPassword'].invalid && 
+                  <!--error for confirm password-->
+                  <span
+                    *ngIf="registerForm.controls['confirmPassword'].invalid && 
                    (registerForm.controls['confirmPassword'].dirty || 
               registerForm.controls['confirmPassword'].touched)" class="error">
-                   <span *ngIf="registerForm.controls['confirmPassword'].errors?.['required']">
-                     * Confirm Password  is Rquired
-                   </span>
-                 </span>
-                 <span
-                 *ngIf="registerForm.controls['confirmPassword'].invalid && 
+                    <span
+                      *ngIf="registerForm.controls['confirmPassword'].errors?.['required']">
+                      * Confirm Password is Rquired
+                    </span>
+                  </span>
+                  <span
+                    *ngIf="registerForm.controls['confirmPassword'].invalid && 
                  (registerForm.controls['confirmPassword'].dirty || 
             registerForm.controls['confirmPassword'].touched)" class="error">
-                 <span *ngIf="registerForm.controls['confirmPassword'].errors?.['pattern']">
-                   *The password must include at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 6 characters long.
-                 </span>
-               </span>
+                    <span
+                      *ngIf="registerForm.controls['confirmPassword'].errors?.['pattern']">
+                      *The password must include at least one lowercase letter,
+                      one uppercase letter, one digit, one special character,
+                      and be at least 6 characters long.
+                    </span>
+                  </span>
                 </div>
                 <!--for image -->
 
               </div>
-              <!--for image -->
-              <div class="row">
-                <div class="col-md-12 ">
 
-                  <!-- 
-                             [multiple]="false" to upload 1 image
-                        accept="image/jpeg,image/jpg,image/png,image/gif" to upload just images 
-                          -->
-                         
-                            <ngx-dropzone (change)="onSelect($event)"
-                            [multiple]="false"
-                            accept="image/jpeg,image/jpg,image/png,image/gif">
-                            <ngx-dropzone-label>Add Your Photo
-                              <i class="fa fa-upload" aria-hidden="true"></i>
-                            </ngx-dropzone-label>
-                            <ngx-dropzone-preview *ngFor="let f of files"
-                              [removable]="true" (removed)="onRemove(f)">
-                              <ngx-dropzone-label>{{ f.name }} </ngx-dropzone-label>
-                            </ngx-dropzone-preview>
-                          </ngx-dropzone>
-                          </div>
-                
-
-        
-              </div>
               <div class="links">
                 <a (click)="navigateToLogin()" class="text-main"> Login Now
                   ?</a>
 
-                <a  (click)="navigateToverify()" class="text-secondary-color"
-                >Have Code?</a>
-               
+                <a (click)="navigateToverify()"
+                  class="text-secondary-color">Have Code?</a>
+
               </div>
-              
-
-             
-
               <div class=" d-flex justify-content-center align-items-center">
-                <button class="primary w-75 m-auto" [disabled]="registerForm.invalid"
+                <button class="primary w-75 m-auto"
+                  [disabled]="registerForm.invalid"
                   type="submit">Register</button>
               </div>
             </form>

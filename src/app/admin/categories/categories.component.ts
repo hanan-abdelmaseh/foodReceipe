@@ -18,12 +18,9 @@ export class CategoriesComponent  implements OnInit{
   listOfCAtegories :any ;
   //dialog 
   categoryItem: string= '' ;
+  validData:boolean = false;
 
-  pageChangeEvent(event: PageEvent) {
-    this.pageNumber = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.getAllCategories();
-}
+
   
 
   constructor(private _CategoryService:CategoryService , public dialog: MatDialog ,
@@ -40,6 +37,7 @@ export class CategoriesComponent  implements OnInit{
         next:(res)=>{
              console.log(res);
              this.listOfCAtegories= res;
+             this.validData= true;
              console.log(this.listOfCAtegories);
              this.pageNumber =this.listOfCAtegories.pageNumber ;
              this.pageSize= this.listOfCAtegories.pageSize;
@@ -53,7 +51,7 @@ export class CategoriesComponent  implements OnInit{
         }
       });
   }
-  //dialog  for add new catalog
+  //dialog  for add new category
   openDialog(): void {
     const dialogRef = this.dialog.open(AddEditCategoriesComponent, {
       data: {name: this.categoryItem},
@@ -84,11 +82,13 @@ export class CategoriesComponent  implements OnInit{
       }
     });
   }
+/////////////////////////////////////////////////////////////////////////
 
   //delete category 
-  openDeleteDialog(deltedId:number) {
+
+  openDeleteDialog(deltedId:number , name:string) {
     const dialogRef = this.dialog.open(DeleteComponent, {
-      data: {id:deltedId},
+      data: {id:deltedId , name:name},
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The delete  was closed');
@@ -111,25 +111,14 @@ export class CategoriesComponent  implements OnInit{
 
   })
   }
-
+//////////////////////////////////////////////////////////////////////////
 
   //get by id
   //view category  not completetd
-  openViewDialog(viewId:number):void {
+  openViewDialog(viewId:number , Categoryname:string , creation:string , updating:string):void {
     const dialogRef = this.dialog.open(ViewComponent, {
-      data: {id:viewId},
+      data: {id:viewId , name:Categoryname , creationDate:creation ,updatingDate:updating},
     });
-   
-    /*
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The delete  was viewed');
-       console.log( result);
-       //check result 
-        this.getCategoryByID(result)
-         this.toastr.success('your category viewed sucessfully');
-
-    });
-    */
   }
   getCategoryByID(id:number){
     this._CategoryService.getCategoryById(id).subscribe({
@@ -145,26 +134,26 @@ export class CategoriesComponent  implements OnInit{
      
   }
 
-
+/////////////////////////////////////////////////////////////////////////
 
   /////////update 
-  openUpdateDialog(updateID:number): void {
+  openUpdateDialog(updateID:number ,updatedValue:string ): void {
     const dialogRef = this.dialog.open(AddEditCategoriesComponent, {
-      data: {id:updateID ,name: this.categoryItem},
-    });
 
+      data: {id:updateID ,name: updatedValue } ,
+    });
+    //need to handle name ?
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
        console.log( result);
-      
        //check result 
        if(result){
         this.updateCategory(updateID ,result);
         this.toastr.success('your category Has been updated');
-
        }
     });
   }
+ 
 
   updateCategory(id:number ,categoryName:string){
     this._CategoryService.updateCetegory(id,categoryName).subscribe({
@@ -178,6 +167,21 @@ export class CategoriesComponent  implements OnInit{
       }
     });
   }
+  //////////////////////////////////////////////////////////////////////
  //pagination 
+ pageChangeEvent(event: PageEvent) {
+  this.pageNumber = event.pageIndex;
+  this.pageSize = event.pageSize;
+  this.getAllCategories();
+}
+//sort data 
+
+
+
+
+
+
+
+
     
 }

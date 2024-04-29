@@ -1,13 +1,19 @@
 <div class="container">
-    <div class="row justify-content-center align-items-center text-center ">
+    <div class="row  ">
         <div class="col-md-12 ">
             <div class="DeleteContent p-5" >
                <i class="fa fa-close"
                aria-hidden="true" (click)="onNoClick()"  
                ></i>
-                  <h6 class="mt-2">
-                    category
+                  <h6 class="mt-2 mb-3">
+                    Category Details
                   </h6>
+                  <div class="text-start">
+                    <p>Category Name:{{data.name}}  </p>
+                    <p>Creation Date: {{data.creationDate}} </p>
+                    <p>Modification Date : {{data.updatingDate}} </p>
+                  </div>
+                  
             </div>
         </div>
     </div>

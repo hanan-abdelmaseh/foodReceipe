@@ -12,6 +12,7 @@ import { VerifyComponent } from './Components/verify/verify.component';
 
 
 @NgModule({
+  
   declarations: [
     AuthComponent,
     RegisterComponent,

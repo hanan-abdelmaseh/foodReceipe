@@ -43,8 +43,9 @@
                     </button>
                 </div>
             </div>
+        
             <div class="row">
-                <table class="table table-striped mt-2">
+                <table class="table mt-2 changeTableStyle">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -66,17 +67,18 @@
                                 </button>
                                 <mat-menu #menu="matMenu">
                                     <button mat-menu-item
-                                        (click)="openViewDialog(category.id)">
+                                        (click)="openViewDialog(category.id ,
+                                        category.name,category.creationDate , category.modificationDate)">
                                         <mat-icon>visibility</mat-icon>
                                         <span>View</span>
                                     </button>
                                     <button mat-menu-item
-                                        (click)="openUpdateDialog(category.id)">
+                                        (click)="openUpdateDialog(category.id , category.name)">
                                         <mat-icon>edit_note</mat-icon>
                                         <span>Update</span>
                                     </button>
                                     <button mat-menu-item
-                                        (click)="openDeleteDialog(category.id)">
+                                        (click)="openDeleteDialog(category.id , category.name)">
                                         <mat-icon>delete</mat-icon>
                                         <span>Delete</span>
                                     </button>
@@ -96,6 +98,7 @@
                     [pageIndex]="listOfCAtegories.pageNumber"
                     [pageSizeOptions]="[5, 10]" aria-label="Select page">
                 </mat-paginator>
+               
             </div>
         </div>
     </div>

@@ -6,14 +6,15 @@
           <div class="DeleteContent p-5">
              <i class="fa fa-close" aria-hidden="true" (click)="onNoClick()"></i>
              
-               
-                <h6 class="mt-2">
+                
+                <h6 class="mt-2 mb-3">
                   Add Your Category
                 </h6>                
-                  <input class="form-control" placeholder="Category Name" matInput [(ngModel)]="data.name">
-                
+                  <input class="form-control" placeholder="Category Name" matInput  value="{{data.name}}"
+                  [(ngModel)]="data.name">
+               
                 <div class="text-end mt-4">
-                  <button type="button" class="btn primary"
+                  <button type="button" class="btn primary" [matDialogClose]="data.name"
                    [mat-dialog-close]="data.name">Save</button>
                 </div>
                 
