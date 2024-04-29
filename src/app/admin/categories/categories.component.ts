@@ -19,6 +19,13 @@ export class CategoriesComponent  implements OnInit{
   //dialog 
   categoryItem: string= '' ;
 
+  pageChangeEvent(event: PageEvent) {
+    this.pageNumber = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getAllCategories();
+}
+  
+
   constructor(private _CategoryService:CategoryService , public dialog: MatDialog ,
       private toastr: ToastrService){}
   

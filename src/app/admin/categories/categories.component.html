@@ -9,14 +9,16 @@
                         </h1>
 
                         <p>
-                            You can now add your items that any user can order it from the Application and you can edit
+                            You can now add your items that any user can order
+                            it from the Application and you can edit
 
                         </p>
                     </div>
                 </div>
                 <div class="col-md-4 text-end">
                     <div>
-                        <img src="../../../assets/images/categories-img.svg" alt="" class="w-50">
+                        <img src="../../../assets/images/categories-img.svg" alt
+                            class="w-50">
                     </div>
                 </div>
             </div>
@@ -27,13 +29,13 @@
         <div class="container">
             <div class="row justify-content-between align-items-center">
                 <div class="col-md-8">
-                   <div>
-                    <h5>
-                        Categories Table Details
-                       
-                    </h5>
-                    <p>You can check all details</p>
-                   </div>
+                    <div>
+                        <h5>
+                            Categories Table Details
+
+                        </h5>
+                        <p>You can check all details</p>
+                    </div>
                 </div>
                 <div class="col-md-4 text-end">
                     <button class="btn primary" (click)="openDialog()">
@@ -45,58 +47,57 @@
                 <table class="table table-striped mt-2">
                     <thead>
                         <tr>
-                          <th >Name</th>
-                          <th >Creation Date</th>
-                          <th >Modification Date</th>
-                          <th>Action</th>
+                            <th>Name</th>
+                            <th>Creation Date</th>
+                            <th>Modification Date</th>
+                            <th>Action</th>
                         </tr>
-                      </thead>
-                      <tbody>
-                        <tr  *ngFor="let category of listOfCAtegories.data">
-                        <td>{{category.name}}</td>
-                          <td>{{category.creationDate |date}} </td>
-                          <td>{{category.modificationDate |date}}</td>
-                           <td>
-                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                                <mat-icon>more_vert</mat-icon>
-                              </button>
-                              <mat-menu #menu="matMenu">
-                                <button mat-menu-item (click)="openViewDialog(category.id)">
-                                  <mat-icon>visibility</mat-icon>
-                                  <span>View</span>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let category of listOfCAtegories.data">
+                            <td>{{category.name}}</td>
+                            <td>{{category.creationDate |date}} </td>
+                            <td>{{category.modificationDate |date}}</td>
+                            <td>
+                                <button mat-icon-button
+                                    [matMenuTriggerFor]="menu"
+                                    aria-label="Example icon-button with a menu">
+                                    <mat-icon>more_vert</mat-icon>
                                 </button>
-                                <button mat-menu-item (click)="openUpdateDialog(category.id)" >
-                                  <mat-icon>edit_note</mat-icon>
-                                  <span>Update</span>
-                                </button>
-                                <button mat-menu-item (click)="openDeleteDialog(category.id)">
-                                  <mat-icon>delete</mat-icon>
-                                  <span>Delete</span>
-                                </button>
-                              </mat-menu>
-                           </td>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item
+                                        (click)="openViewDialog(category.id)">
+                                        <mat-icon>visibility</mat-icon>
+                                        <span>View</span>
+                                    </button>
+                                    <button mat-menu-item
+                                        (click)="openUpdateDialog(category.id)">
+                                        <mat-icon>edit_note</mat-icon>
+                                        <span>Update</span>
+                                    </button>
+                                    <button mat-menu-item
+                                        (click)="openDeleteDialog(category.id)">
+                                        <mat-icon>delete</mat-icon>
+                                        <span>Delete</span>
+                                    </button>
+                                </mat-menu>
+                            </td>
                         </tr>
 
-                        </tbody>
-                  </table>
-                  <mat-paginator #paginator
-              [length]="listOfCAtegories.totalNumberOfRecords "
-              [pageSize]="listOfCAtegories.pageSize "
-              [pageIndex]="listOfCAtegories.pageNumber"
-              [pageSizeOptions]="[5, 10, 25, 100]"
-              
-               [(ngModel)]="listOfCAtegories.pageNumber"
+                    </tbody>
+                </table>
 
-
-
-              aria-label="Select page">
-</mat-paginator>
+                <!--pagination-->
+                <mat-paginator
+                    #paginator
+                    (page)="pageChangeEvent($event)"
+                    [length]="listOfCAtegories.totalNumberOfRecords"
+                    [pageSize]="pageSize"
+                    [pageIndex]="listOfCAtegories.pageNumber"
+                    [pageSizeOptions]="[5, 10]" aria-label="Select page">
+                </mat-paginator>
             </div>
         </div>
     </div>
 
-  
-        
-  
 </section>
-
