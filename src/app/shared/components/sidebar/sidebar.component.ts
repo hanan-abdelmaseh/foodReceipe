@@ -53,13 +53,13 @@ export class SidebarComponent {
     {
       text:'Favorites',
       icon:'fa fa-heart' ,
-      link:'',
+      link:'/dashboard/user/favorites',
       isActive:this.isUser()
     },
     {
-      text:'User Receipes',
+      text:'Receipes',
       icon:'fa fa-heart' ,
-      link:'',
+      link:'/dashboard/user/receipes',
       isActive:this.isUser()
     },
 

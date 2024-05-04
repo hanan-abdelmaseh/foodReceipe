@@ -1,1 +1,163 @@
-<p>users works!</p>
+
+
+
+<section>
+    
+    <div class="page-title">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-8">
+                    <div>
+                        <h1>Users
+                            <span>List</span>
+                        </h1>
+
+                        <p>
+                            You can now add your items that any user can order
+                            it from the Application and you can edit
+
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div>
+                        <img src="../../../assets/images/categories-img.svg" alt
+                            class="w-50">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-2 p-3">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-md-12">
+                    <div>
+                        <h5>
+                            Users Table Details
+
+                        </h5>
+                        <p>You can check all details</p>
+                    </div>
+                </div>
+
+            </div>
+           
+            <div class="row mt-3">
+              
+                       <!--tag-->
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Search By</mat-label>
+                        <mat-select disableRipple [(ngModel)]="serachByID" (selectionChange)="getAllUsers()">
+                          
+                            <mat-option value="userName">Name</mat-option>
+                            <mat-option value="email">Email</mat-option>
+                            <mat-option value="country">Country</mat-option>
+                            
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <!--search-->
+                    <mat-form-field class="example-form-field"
+                        appearance="outline" class="w-100">
+                        <mat-label><i class="fa fa-search"
+                                aria-hidden="true"></i> Search</mat-label>
+                        <input matInput type="text" 
+                        [(ngModel)]="SearchValue" (keyup.enter)="getAllUsers()">
+                        <button *ngIf="SearchValue" matSuffix mat-icon-button
+                            aria-label="Clear"
+                            (click)="resetSearcgInput()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+             
+
+                <!--Role-->
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Role</mat-label>
+
+                        <mat-select [(ngModel)]="roleID" (selectionChange)="getAllUsers()">
+                            <mat-option value="0">All</mat-option>
+                            <mat-option value="1">Admin</mat-option>
+                            <mat-option value="2">User</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+    
+           
+            <div class="row">
+                <table class="table mt-2 changeTableStyle">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Country</th>
+                            <th>Phone</th>
+                            <th>Image</th>
+                            <th>Role</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let user of listOfUsers?.data">
+                            <td>{{user.userName}}</td>
+                            <td>{{user.email}} </td>
+                            <td>{{user.country}}</td>
+                            <td>{{user.phoneNumber}}</td>
+                            <td class="tdImage" >
+                                <img
+                                    [src]="user.imagePath?imgURL+user.imagePath:dumyImage "
+                                     alt>
+                            </td>
+
+                            <td>{{user.group.name}}</td>
+                            <td>
+                                <button mat-icon-button
+                                    [matMenuTriggerFor]="menu"
+                                    aria-label="Example icon-button with a menu">
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item
+                                        (click)="openViewDialog(user)">
+                                        <mat-icon>visibility</mat-icon>
+                                        <span>View</span>
+                                    </button>
+
+                                    <button mat-menu-item
+                                        (click)="openDeleteDialog(user.id , user.userName)">
+                                        <mat-icon>delete</mat-icon>
+                                        <span>Delete</span>
+                                    </button>
+                                </mat-menu>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+                <mat-paginator
+                    #paginator
+                    (page)="pageChangeEvent($event)"
+                    [length]="listOfUsers?.totalNumberOfRecords"
+                    [pageSize]="pageSize"
+                    [pageIndex]="pageNumber"
+                    [pageSizeOptions]="[5, 10]" aria-label="Select page">
+                </mat-paginator>
+            </div>
+        
+            
+        </div>
+    </div>
+  
+
+</section>
+

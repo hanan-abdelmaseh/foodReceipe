@@ -68,6 +68,7 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  
 
   onSelect(event:any) {
     console.log(event);

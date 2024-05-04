@@ -1,0 +1,211 @@
+<section>
+    <div class="page-title">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-8">
+                    <div>
+                        <h1>Recipes
+                            <span>Items</span>
+                        </h1>
+
+                        <p>
+                            You can now add your items that any user can order
+                            it from the Application and you can edit
+
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div>
+                        <img src="../../../assets/images/categories-img.svg" alt
+                            class="w-50">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-2 p-3">
+        <div class="container">
+            <div class="row justify-content-between align-items-center content">
+                <div class="col-md-12">
+                    <div>
+                        <h5 class="mt-3">
+                            Recipe Table Details
+
+                        </h5>
+                        <p>You can check all details</p>
+                    </div>
+                </div>
+             
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <div class="showIcons text-end">
+                        <button  class="btn "  (click)="showcard()">
+                            <mat-icon>
+                                dashboard
+                            </mat-icon>
+                        </button>
+                        <button class="btn" (click)="showTable()">
+                            <mat-icon>
+                                list
+                            </mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!--search-->
+                    <mat-form-field class="example-form-field"
+                        appearance="outline" class="w-100">
+                        <mat-label><i class="fa fa-search"
+                                aria-hidden="true"></i> Search</mat-label>
+                        <input matInput type="text" 
+                        [(ngModel)]="SearchValue" (keyup.enter)="getAllReceipes()">
+                        <button *ngIf="SearchValue" matSuffix mat-icon-button
+                            aria-label="Clear"
+                            (click)="resetSearcgInput()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <!--tag-->
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Tag</mat-label>
+                        <mat-select disableRipple [(ngModel)]="tagId" (selectionChange)="getAllReceipes()">
+                            <mat-option value="0">All</mat-option>
+                            <mat-option *ngFor="let tag of listOfTags" [value]="tag.id">
+                                {{tag.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <!--category-->
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Category</mat-label>
+
+                        <mat-select [(ngModel)]="CategoryID" (selectionChange)="getAllReceipes()">
+                            <mat-option value="0">All</mat-option>
+                            <mat-option *ngFor="let category of listOfCategories"
+                                [value]="category.id">{{category.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <div class="row">
+              
+               
+                <ng-container *ngIf="showcards">
+                <div class="col-md-3"  *ngFor="let item of listOfReceipes?.data">
+                
+                       
+                    <div class="card mb-3 " >
+                        <img class="card-img-top"
+                          [src]="item.imagePath?imgURL+item.imagePath:dumyImage " alt="Card image cap">
+                        <div class="card-body">
+                          <h5 class="card-title">{{item.name}}</h5>
+                          <p class="card-text mb-3">{{item.description}}</p>
+                          <div class="links d-flex justify-content-between">
+
+                            <a  class="me-5" (click)="addToFav(item.id)">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            </a>
+                            <a ><mat-icon (click)="openViewDialog(item)">visibility</mat-icon></a>
+                                
+                          </div>
+                          
+                        </div>
+                      </div>
+                </div>
+                <mat-paginator
+                #paginator
+                (page)="pageChangeEvent($event)"
+                [length]="listOfReceipes?. totalNumberOfRecords"
+               
+                [pageSize]="pageSize"
+                [pageIndex]="pageNumber"
+                [pageSizeOptions]="[5, 10]" aria-label="Select page">
+            </mat-paginator>
+                </ng-container>
+                <ng-container *ngIf="!showcards">
+                    <table class="table mt-2 changeTableStyle">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th>Tag</th>
+                                <th>Category</th>
+    
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody  *ngIf="listOfReceipes?.data.length>0">
+    
+                            <tr *ngFor="let receipe of listOfReceipes.data">
+                                <td>{{receipe.name}}</td>
+    
+                                <td >
+                                    <img class="tableImg"
+                                        [src]="receipe.imagePath?imgURL+receipe.imagePath:dumyImage "
+                                        alt>
+                                </td>
+                                <td>{{receipe.price}}</td>
+                                <td>{{receipe.description}}</td>
+                                <td>
+                                    {{receipe.tag.name}}
+                                </td>
+                                <td>
+                                    <span *ngFor="let category of receipe.category">
+                                        {{category.name}}
+                                    </span>
+                                </td>
+    
+                                <td>
+                                    <button mat-icon-button
+                                        [matMenuTriggerFor]="menu"
+                                        aria-label="Example icon-button with a menu">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item>
+                                            <mat-icon>visibility</mat-icon>
+                                            <span>View</span>
+                                        </button>
+                                        
+                                       
+                                    </mat-menu>
+                                </td>
+                            </tr>
+    
+                        </tbody>
+                    </table>
+                  
+                    
+                <mat-paginator
+                #paginator
+                (page)="pageChangeEvent($event)"
+                [length]="listOfReceipes?. totalNumberOfRecords"
+               
+                [pageSize]="pageSize"
+                [pageIndex]="pageNumber"
+                [pageSizeOptions]="[5, 10]" aria-label="Select page">
+            </mat-paginator>
+                  </ng-container>
+
+                
+
+                <!--pagination-->
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+

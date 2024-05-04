@@ -72,6 +72,13 @@ export class AuthService {
  verifyAccount(userinfo: any): Observable<any> {
   return this._HttpClient.put('Users/verify', userinfo)
 }
-
+//get currnet user
+getCurrentuser():Observable<any>{
+  return this._HttpClient.get('Users/currentUser')
+}
+//updating profile data 
+updatingProfile(userData:any):Observable<any>{
+  return this._HttpClient.put('Users' , userData)
+}
 
 }

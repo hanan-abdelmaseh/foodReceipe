@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-12 ">
+            <div class="DeleteContent p-3">
+               <i class="fa fa-close" aria-hidden="true" (click)="onNoClick()"></i>
+                   <div class=" text-center">
+                    <img [src]="data.imagePath?this.imgURL+data.imagePath:dumyImage"
+                     alt="" >
+                   </div>
+                  
+                  <h6 class="mt-2">
+                   User Name : {{data.userName}}
+                  </h6>
+                 
+                  <p>
+                  Email : {{data.email}}
+                  </p>
+                  <p>Country :{{data.country}}</p>
+                  <p>Phone :{{data.phoneNumber}}</p>
+                  <p>Role :{{data.group.name}}</p>
+                  <p>Creation Date :{{data.creationDate|date}}</p>
+                  <p>Modification Date:{{data.modificationDate|date}}</p>
+                  <div class="d-flex justify-content-between">
+                    <button type="button" class="btn primary mb-2"
+                    (click)="onNoClick()"
+                    >OK</button>
+                    <button type="button" class="btn btn-outline-danger mb-2"
+                    [mat-dialog-close]="data.id"
+                    >Edit</button>
+                  </div>
+                  
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,6 +16,8 @@ export class CategoriesComponent  implements OnInit{
   pageNumber:number = 1;
   pageSize:number=10;
   listOfCAtegories :any ;
+   //search 
+   SearchValue = '';
   //dialog 
   categoryItem: string= '' ;
   validData:boolean = false;
@@ -32,15 +34,20 @@ export class CategoriesComponent  implements OnInit{
   }
 
   getAllCategories(){
-      this._CategoryService.getAllCategories(this.pageNumber,this.pageSize).subscribe({
+      //to applay search 
+  let params={
+    name:this.SearchValue ,
+    pageSize:this.pageSize,
+    pageNumber:this.pageNumber
+  }
+      this._CategoryService.getAllCategories(params).subscribe({
         //we need to pass token in header of interceptors to be able to see categories
         next:(res)=>{
              console.log(res);
              this.listOfCAtegories= res;
              this.validData= true;
              console.log(this.listOfCAtegories);
-             this.pageNumber =this.listOfCAtegories.pageNumber ;
-             this.pageSize= this.listOfCAtegories.pageSize;
+            
             
         },
         error:()=>{
@@ -93,9 +100,12 @@ export class CategoriesComponent  implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       console.log('The delete  was closed');
        console.log( result);
-       //check result 
-        this.deleteCategorybyID(result)
-         this.toastr.success('your category deleted');
+       if(result)
+        {
+          this.deleteCategorybyID(result)
+          this.toastr.success('your category deleted');
+        }
+       
 
     });
   }
@@ -153,8 +163,6 @@ export class CategoriesComponent  implements OnInit{
        }
     });
   }
- 
-
   updateCategory(id:number ,categoryName:string){
     this._CategoryService.updateCetegory(id,categoryName).subscribe({
       next:(res)=>{
@@ -174,7 +182,11 @@ export class CategoriesComponent  implements OnInit{
   this.pageSize = event.pageSize;
   this.getAllCategories();
 }
-//sort data 
+resetSearcgInput(){
+  this.SearchValue= '';
+  this.getAllCategories();
+}
+
 
 
 

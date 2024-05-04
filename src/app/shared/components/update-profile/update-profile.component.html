@@ -1,0 +1,208 @@
+<div class="container">
+    <div class="row justify-content-center align-items-center  ">
+        <div class="col-md-12 p-2 ">
+            <div class="DeleteContent  ">
+               <i class="fa fa-close close" aria-hidden="true" (click)="onNoClick()"></i>
+               
+                  
+                  <h6 class="mt-2 mb-5">
+                  Updating Your Profile
+                  </h6>     
+                  <form [formGroup]="updatingProfileForm"
+                  (ngSubmit)="updatingProfileData(updatingProfileForm)">
+                  <!--for image -->
+                  <div class="row mb-3">
+                    <div class="col-md-12 text-center d-flex justify-content-center align-items-center">
+                      <ngx-dropzone (change)="onSelect($event)"
+                  
+                        accept="image/jpeg,image/jpg,image/png,image/gif">
+                        <ngx-dropzone-label>Photo
+                          <i class="fa fa-upload" aria-hidden="true"></i>
+                        </ngx-dropzone-label>
+                        <ngx-dropzone-image-preview [removable]="true"     
+                          (removed)="onRemove(f)" ngProjectAs="ngx-dropzone-preview"
+                          *ngFor="let f of files" [file]="f">
+                          <ngx-dropzone-label>{{ f.name }} </ngx-dropzone-label>
+                        </ngx-dropzone-image-preview>
+                      </ngx-dropzone>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+    
+                          <i class="fa fa-mobile" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control"
+                          formControlName="userName"
+                          placeholder="User Name"
+                          aria-label="Username" aria-describedby="basic-addon1">
+                      </div>
+    
+                      <!--error  for name-->
+                      <span
+                        *ngIf="updatingProfileForm.controls['userName'].invalid && (updatingProfileForm.controls['userName'].dirty || 
+              updatingProfileForm.controls['userName'].touched)" class="error">
+                        <span
+                          *ngIf="updatingProfileForm.controls['userName'].errors?.['required']">
+                          *The user Name must contain characters and end with
+                          numbers without spaces
+                        </span>
+                      </span>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+    
+                          <i class="fa fa-mobile" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control"
+                          formControlName="email"
+                          placeholder="Enter your E-mail"
+                          aria-label="Username" aria-describedby="basic-addon1">
+                      </div>
+                      <!--error  for email required-->
+                      <span
+                        *ngIf="updatingProfileForm.controls['email'].invalid && (updatingProfileForm.controls['email'].dirty || 
+              updatingProfileForm.controls['email'].touched)" class="error">
+                        <span
+                          *ngIf="updatingProfileForm.controls['email'].errors?.['required']">
+                          *Email is Rquired
+                        </span>
+                      </span>
+    
+                      <!--error  for email-->
+                      <span
+                        *ngIf="updatingProfileForm.controls['email'].invalid && (updatingProfileForm.controls['email'].dirty || 
+             updatingProfileForm.controls['email'].touched)" class="error">
+                        <span
+                          *ngIf="updatingProfileForm.controls['email'].errors?.['email']">
+                          *Please add Valid Email
+                        </span>
+                      </span>
+                      
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+    
+                          <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control"
+                          placeholder="Country"
+                          formControlName="country"
+                          aria-label="Username" aria-describedby="basic-addon1">
+    
+                      </div>
+                      <!--error for country-->
+                      <span
+                        *ngIf="updatingProfileForm.controls['country'].invalid && 
+                      (updatingProfileForm.controls['country'].dirty || 
+                      updatingProfileForm.controls['country'].touched)" class="error">
+                        <span
+                          *ngIf="updatingProfileForm.controls['country'].errors?.['required']">
+                          *Country is Rquired
+                        </span>
+                      </span>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+    
+                          <i class="fa fa-mobile" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control"
+                          formControlName="phoneNumber"
+                          placeholder="Phone Number" aria-label="Username"
+                          aria-describedby="basic-addon1">
+    
+                      </div>
+                      <!--error for phone number-->
+                      <span
+                        *ngIf="updatingProfileForm.controls['phoneNumber'].invalid && 
+                       (updatingProfileForm.controls['phoneNumber'].dirty || 
+                       updatingProfileForm.controls['phoneNumber'].touched)" class="error">
+                        <span
+                          *ngIf="updatingProfileForm.controls['phoneNumber'].errors?.['required']">
+                          *Phone Number is Rquired
+                        </span>
+                      </span>
+                    </div>
+                   
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+    
+                          <i class="fa fa-mobile" aria-hidden="true"></i>
+                        </span>
+                        <input [type]="isconfirm?'password' :'text'"
+                          class="form-control"
+                          formControlName="confirmPassword"
+                          placeholder="confirm-password" aria-label="Username"
+                          aria-describedby="basic-addon1">
+                        <span class="input-group-text  "
+                          (click)="isconfirm=!isconfirm">
+                          <i class="fa "
+                            [class]="isconfirm? 'fa-eye-slash':'fa-eye'"
+                            aria-hidden="true"></i>
+                        </span>
+                      </div>
+                      <!--error for confirm password-->
+                      <span
+                        *ngIf="updatingProfileForm.controls['confirmPassword'].invalid && 
+                       (updatingProfileForm.controls['confirmPassword'].dirty || 
+                       updatingProfileForm.controls['confirmPassword'].touched)" class="error">
+                        <span
+                          *ngIf="updatingProfileForm.controls['confirmPassword'].errors?.['required']">
+                          * Confirm Password is Rquired
+                        </span>
+                      </span>
+                      <span
+                        *ngIf="updatingProfileForm.controls['confirmPassword'].invalid && 
+                     (updatingProfileForm.controls['confirmPassword'].dirty || 
+                     updatingProfileForm.controls['confirmPassword'].touched)" class="error">
+                        <span
+                          *ngIf="updatingProfileForm.controls['confirmPassword'].errors?.['pattern']">
+                          *The password must include at least one lowercase letter,
+                          one uppercase letter, one digit, one special character,
+                          and be at least 6 characters long.
+                        </span>
+                      </span>
+                    </div>
+                  
+    
+                  </div>
+    
+                 
+                  <div class=" d-flex justify-content-center align-items-center">
+                    <button class="primary w-75 m-auto"
+                      [disabled]="updatingProfileForm.invalid"
+                      type="submit">update Profile</button>
+                  </div>
+                </form>  
+                  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  
+            </div>
+        </div>
+    </div>
+  </div>

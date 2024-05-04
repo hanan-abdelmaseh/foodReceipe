@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <div class="content mt-2 p-3">
+    <div class=" mt-2 p-3">
         <div class="container">
             <div class="row justify-content-between align-items-center">
                 <div class="col-md-8">
@@ -43,9 +43,25 @@
                     </button>
                 </div>
             </div>
-        
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <!--search-->
+                    <mat-form-field class="example-form-field"
+                        appearance="outline" class="w-100">
+                        <mat-label><i class="fa fa-search"
+                                aria-hidden="true"></i> Search</mat-label>
+                        <input matInput type="text" 
+                        [(ngModel)]="SearchValue" (keyup.enter)="getAllCategories()">
+                        <button *ngIf="SearchValue" matSuffix mat-icon-button
+                            aria-label="Clear"
+                            (click)="resetSearcgInput()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                </div>
             <div class="row">
-                <table class="table mt-2 changeTableStyle">
+                <table class="table mt-2  table-striped">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -54,7 +70,7 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="listOfCAtegories?.data.length>0">
                         <tr *ngFor="let category of listOfCAtegories.data">
                             <td>{{category.name}}</td>
                             <td>{{category.creationDate |date}} </td>
@@ -93,9 +109,9 @@
                 <mat-paginator
                     #paginator
                     (page)="pageChangeEvent($event)"
-                    [length]="listOfCAtegories.totalNumberOfRecords"
+                    [length]="listOfCAtegories?.totalNumberOfRecords"
                     [pageSize]="pageSize"
-                    [pageIndex]="listOfCAtegories.pageNumber"
+                    [pageIndex]="pageNumber"
                     [pageSizeOptions]="[5, 10]" aria-label="Select page">
                 </mat-paginator>
                

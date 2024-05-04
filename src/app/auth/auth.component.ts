@@ -10,53 +10,74 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  loginForm:FormGroup = new FormGroup({
-    email: new FormControl( '', [Validators.required , 
-                                    Validators.email ,
-                                    Validators.minLength(8) ,
-                                    Validators.maxLength(100)]) ,
-    password:new FormControl('', [Validators.required , 
+  loginForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required,
+    Validators.email,
+    Validators.minLength(8),
+    Validators.maxLength(100)]),
+    password: new FormControl('', [Validators.required,
       //Validators.pattern(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/) 
-                                     ])
+    ])
   });
   // to control eye of password
-  isShown:boolean = true;
+  isShown: boolean = true;
+  //current
+  currentUser: any;
 
-  constructor(private _AuthService:AuthService ,   
-    private _router:Router , private toastr: ToastrService){}
+  constructor(private _AuthService: AuthService,
+    private _router: Router, private toastr: ToastrService) { }
   ngOnInit() {
     
   }
-  
-  userLogin( userData:FormGroup){
+
+
+  userLogin(userData: FormGroup) {
     //email:"hananabdelmaseh9@gmail.com" , password:"Hana1%%"}
 
-   this._AuthService.login(userData.value).subscribe({
-  next:(res)=>{
-    console.log(res);
-   
-   this.toastr.success('Welcome , You are logged in');
-    // 1- save token in local storage >> then we will use it in auth gaurd
-   localStorage.setItem("userToken" ,res.token) ;
-   //call getprofile which decode token
-   this._AuthService.getProfile();
-   // handle navigate to dashboard
+    this._AuthService.login(userData.value).subscribe({
+      next: (res) => {
+        console.log(res);
 
-  }  , error:()=>{
+        this.toastr.success('Welcome , You are logged in');
+        // 1- save token in local storage >> then we will use it in auth gaurd
+        localStorage.setItem("userToken", res.token);
+        
+        //call getprofile which decode token
+        this._AuthService.getProfile();
+        // handle navigate to dashboard
 
-  } ,
-  complete:()=> {
-    this._router.navigate(['dashboard']);
-  }
-   });    
-  }
+      }, error: () => {
 
-
-  navigateToForgetPassword(){
-    this._router.navigateByUrl('auth/forgetPass')
-    }
-    navigateToRegister(){
-      this._router.navigateByUrl('auth/register')
+      },
+      complete: () => {
+        this._router.navigate(['dashboard']);
+        this.getCurrentUser()
       }
+    });
+  }
 
+
+  navigateToForgetPassword() {
+    this._router.navigateByUrl('auth/forgetPass')
+  }
+  navigateToRegister() {
+    this._router.navigateByUrl('auth/register')
+  }
+
+
+  //after loging geting user data
+  getCurrentUser() {
+    this._AuthService.getCurrentuser().subscribe({
+      next: (res) => {
+
+        console.log(res)
+
+        this.currentUser = res;
+        console.log(this.currentUser);
+        localStorage.setItem('userImage',res.imagePath )
+      },
+      error: () => { },
+      complete: () => { }
+    })
+  }
 }

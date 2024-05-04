@@ -1,0 +1,108 @@
+ <div class="content mt-2 p-3">
+    <div class="container">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-8">
+               <div>
+                <h3>
+                    Fill the <span class="mainTExt">
+                        Recipes !
+                    </span>
+                   
+                </h3>
+                <p>you can now fill the meals easily using the table and form ,
+                    <br> click here and sill it with the table !</p>
+               </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <button class="btn primary">
+                    <a routerLink="/dashboard/admin/receipes/all">
+
+
+
+                          All Recipes <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                 
+                          
+                </button>
+            </div>
+        </div>
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-12   m-auto">
+                <form [formGroup]="AddReceipeForm"
+                (ngSubmit)="AddReceipe(AddReceipeForm)">
+                <div class="input-group mb-3">
+                  
+                    <input type="text" class="form-control"
+                       formControlName="name"
+                    
+                        placeholder="Receipe Name " aria-label="email"
+                        aria-describedby="basic-addon1">
+                </div>
+               
+                <div class="input-group mb-3">
+                
+                    <mat-form-field appearance="outline" class="w-100" >
+                        <mat-label>Tag</mat-label>
+                        <mat-select  [(ngModel)]="tagID"  [ngModelOptions]="{standalone: true}" >
+                           
+                            <mat-option *ngFor="let tag of listOfTags" 
+                            [value]="tag.id" >
+                                {{tag.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                
+                  <!--category-->
+                  <div class="input-group mb-3">
+                    <mat-form-field appearance="outline" class="w-100" multiple >
+                        <mat-label>Category</mat-label>
+
+                        <mat-select [(ngModel)]="CategoryID" [ngModelOptions]="{standalone: true}"
+                        >
+                          
+                            <mat-option *ngFor="let category of listOfCategories" 
+                                [value]="category.id">{{category.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="input-group mb-3">
+                  
+                    <input type="number" class="form-control"
+                       formControlName="price"
+                        placeholder="Price " aria-label=""
+                        aria-describedby="basic-addon1">
+                </div>
+             
+                <div class="input-group mb-3 ">
+              
+                    <textarea class="form-control"
+                    formControlName="description"
+                     placeholder="Description " aria-label="With textarea"></textarea>
+                  </div>
+              
+                  <div class="input-group ">
+                    <!--for image -->
+           
+                <ngx-dropzone (change)="onSelect($event)" class="w-100"
+            
+                  accept="image/jpeg,image/jpg,image/png,image/gif">
+                  <ngx-dropzone-label>Photo
+                    <i class="fa fa-upload" aria-hidden="true"></i>
+                  </ngx-dropzone-label>
+                  <ngx-dropzone-image-preview [removable]="true"     
+                    (removed)="onRemove(f)" ngProjectAs="ngx-dropzone-preview"
+                    *ngFor="let f of files" [file]="f">
+                    <ngx-dropzone-label>{{ f.name }} </ngx-dropzone-label>
+                  </ngx-dropzone-image-preview>
+                </ngx-dropzone>
+             
+          
+                </div>
+                <button class="primary w-100" type="submit">Add Recipe
+                </button>
+
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

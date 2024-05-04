@@ -1,17 +1,18 @@
 <div class="container">
     <div class="row  ">
         <div class="col-md-12 ">
-            <div class="DeleteContent p-5" >
+            <div class="DeleteContent p-4" >
                <i class="fa fa-close"
                aria-hidden="true" (click)="onNoClick()"  
                ></i>
-                  <h6 class="mt-2 mb-3">
+                  <h5 class="mt-2 mb-5">
                     Category Details
-                  </h6>
+                  </h5>
                   <div class="text-start">
-                    <p>Category Name:{{data.name}}  </p>
-                    <p>Creation Date: {{data.creationDate}} </p>
-                    <p>Modification Date : {{data.updatingDate}} </p>
+                    <p><i class="fa fa-check-circle" aria-hidden="true"></i>
+                        Category Name:{{    data.name}}  </p>
+                    <p><i class="fa fa-clock" aria-hidden="true"></i>  Creation Date: {{data.creationDate |date}} </p>
+                    <p><i class="fa fa-clock" aria-hidden="true"></i>  Modification Date : {{data.updatingDate |date}} </p>
                   </div>
                   
             </div>

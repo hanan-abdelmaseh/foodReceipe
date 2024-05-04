@@ -175,4 +175,25 @@ html, body { height: 100%; }
          color: #009247;
      }
  }
+ table{
+    padding: 200px !important;
+    
+ }
+.table{
+    --bs-table-bg:none;
+  
+   
+    thead{
+        background-color: rgba(226, 229, 235, 1) !important;
+        border-radius: 10px !important;
+        th{
+            color: rgba(31, 38, 62, 1);
+            font-size: 16px;
+            font-weight: 500;
+        }
+    }
+    
+       
 
+// --bs-table-bg: rgba(226, 229, 235, 1) !important;
+ }
