@@ -34,8 +34,8 @@ export class RecepiesService {
   }
 
   //update receipe
-updateRecipe(id:any ,receipeDate:any ):Observable<any>{
-    return this._HttpClient.put("Recipe/"+id,receipeDate)
+updateRecipe(receipeDate:any ):Observable<any>{
+    return this._HttpClient.put("Recipe/",receipeDate)
   }
   
 

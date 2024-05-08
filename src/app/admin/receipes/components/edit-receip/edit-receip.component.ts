@@ -143,7 +143,7 @@ export class EditReceipComponent {
 
       
      
-  
+  /*
       console.log(newREceipeData);
       this._RecepiesService.updateRecipe(newREceipeData.get('id'),newREceipeData).subscribe({
         next:(res)=>{
@@ -156,6 +156,7 @@ export class EditReceipComponent {
           
         
         }
-      });
+      }); */
     }
+   
 }

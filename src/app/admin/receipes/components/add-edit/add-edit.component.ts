@@ -5,10 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RecepiesService } from '../../services/Recepies.service';
 import { ITag } from '../../interfaces/model';
 import { CategoryService } from 'src/app/admin/categories/services/category.service';
-import { validateHorizontalPosition } from '@angular/cdk/overlay';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AddEditCategoriesComponent } from 'src/app/admin/categories/components/add-edit-categories/add-edit-categories.component';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-add-edit',
   templateUrl: './add-edit.component.html',
@@ -23,6 +20,8 @@ export class ADDEDITComponent implements OnInit {
   ImgStaticPath:string ="https://upskilling-egypt.com:3006/"
 
   imgSrc :any;
+  receipeId:number=0;
+
   AddReceipeForm = new FormGroup({
     name: new FormControl('' , Validators.required),
     description: new FormControl('', Validators.required),
@@ -31,24 +30,44 @@ export class ADDEDITComponent implements OnInit {
     recipeImage:new FormControl('' , Validators.required),
     categoriesId:new FormControl('', Validators.required)
    
-  
+  //// 
+
 
   });
+
+  //receipe data 
+  newreceipeData:any ;
    constructor(private _RecepiesService:RecepiesService, private _Router:Router , 
     private _CategoryService:CategoryService,
-    private toastr: ToastrService 
-  ) {}
+    private toastr: ToastrService  , private _ActivatedRoute:ActivatedRoute
+  ) {
+  //to get id of the selected item needed to be updated
+  this.receipeId=this._ActivatedRoute.snapshot.params['id'];
+  console.log(this.receipeId);
+
+  }
 
 
     ngOnInit() {
-     
+    
       this.getAllTags();
       this.getAllCategories();
-      
+     
+
+       if(this.receipeId){
+        //edit 
+        this.getRecipeById(this.receipeId);
+
+  }
+  else{
+    //add
+     //this.AddReceipe()
+  }
    
       
       }
-  AddReceipe(receipeinfo: FormGroup) {
+      
+  sendData(receipeinfo: FormGroup) {
       //email:"hananabdelmaseh9@gmail.com" , password:"Hanan1$$"}
       // we will use formdata as we want to upload image 
   
@@ -66,7 +85,10 @@ export class ADDEDITComponent implements OnInit {
   
       console.log(REceipeData);
   //in service if i make data:iregister here in component refuse it ?
-  
+    if(this.receipeId){
+   this.updateReceipe(REceipeData);
+    }
+    else{
       this._RecepiesService.AddRecipe(REceipeData).subscribe({
         next: (res) => {
           console.log(res);
@@ -79,8 +101,36 @@ export class ADDEDITComponent implements OnInit {
           this._Router.navigateByUrl('dashboard/admin/receipes/all')
         }
       });
+    }
+     
   
     }
+
+   getRecipeById(id:number){
+    this._RecepiesService.getReceipeById(id).subscribe({
+      next: (res) => {
+        console.log(res);
+       this.newreceipeData=res ;
+      },
+      error:()=>{
+
+      },
+      complete:()=>{
+
+        /*this.AddReceipeForm.patchValue({
+          name:this.newreceipeData.name ,
+          description:this.newreceipeData.description,
+          price:this.newreceipeData.price,
+          tagId: this.newreceipeData.tag.id,
+          recipeImage:this.newreceipeData.recipeImage,
+          categoriesId:this.newreceipeData.category[0].id
+
+        })
+       */
+      }
+  
+    });
+   }
 
     getAllTags(){
       this._RecepiesService.getAllTags().subscribe({
@@ -125,6 +175,28 @@ export class ADDEDITComponent implements OnInit {
       console.log(event);
       this.files.splice(this.files.indexOf(event), 1);
     }
+
+    //updating receipe 
+
+    updateReceipe(receipeData:any){
+      this._RecepiesService.updateRecipe(receipeData.value).subscribe({
+        next:(res)=>{
+          console.log(res)
+        }, error:()=>{
+          
+        }, complete:()=>{
+          this.toastr.success("item has been updated") ;
+         
+          
+        
+        }
+      });
+    }
+
+
+    /// 
+
+  
    
   }
  

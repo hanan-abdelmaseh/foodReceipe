@@ -37,6 +37,7 @@
                         <p>You can check all details</p>
                     </div>
                 </div>
+
                 <div class="col-md-4 text-end">
                     <button class="btn primary" >
                         <!---->
@@ -135,7 +136,7 @@
                                         <span>View</span>
                                     </button>
                                     <button mat-menu-item>
-                                        <a (click)="openUpdateDialog(receipe)">
+                                        <a [routerLink]="['/dashboard/admin/receipes/Edit',receipe.id]">
                                         <mat-icon>
                                            
                                             edit_note</mat-icon>

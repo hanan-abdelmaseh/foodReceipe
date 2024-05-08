@@ -10,6 +10,9 @@ const routes: Routes = [
 },
 {
   path:'addEdit' , component:ADDEDITComponent
+},
+{ path:'Edit/:id' , component:ADDEDITComponent
+  
 }
 ];
 
