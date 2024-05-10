@@ -28,8 +28,8 @@
         </div>
         <div class="row justify-content-between align-items-center">
             <div class="col-md-12   m-auto">
-                <form [formGroup]="AddReceipeForm"
-                (ngSubmit)="sendData(AddReceipeForm)">
+                <form [formGroup]="ReceipeForm"
+                (ngSubmit)="sendData(ReceipeForm)">
                 <div class="input-group mb-3">
                   
                     <input type="text" class="form-control"
@@ -43,7 +43,7 @@
                 
                     <mat-form-field appearance="outline" class="w-100" >
                         <mat-label>Tag</mat-label>
-                        <mat-select  [(ngModel)]="tagID"  [ngModelOptions]="{standalone: true}" >
+                        <mat-select     formControlName="tagId" >
                            
                             <mat-option *ngFor="let tag of listOfTags" 
                             [value]="tag.id" >
@@ -54,12 +54,11 @@
                 </div>
                 
                   <!--category-->
+                  <!-- we change it from  ngmodel to form control name to use it -->
                   <div class="input-group mb-3">
-                    <mat-form-field appearance="outline" class="w-100" multiple >
+                    <mat-form-field appearance="outline" class="w-100"   >
                         <mat-label>Category</mat-label>
-
-                        <mat-select [(ngModel)]="CategoryID" [ngModelOptions]="{standalone: true}"
-                        >
+                        <mat-select formControlName="categoriesIds"  multiple >
                           
                             <mat-option *ngFor="let category of listOfCategories" 
                                 [value]="category.id">{{category.name}}</mat-option>
@@ -84,13 +83,13 @@
                   <div class="input-group ">
                     <!--for image -->
            
-                <ngx-dropzone (change)="onSelect($event)" class="w-100"
+                <ngx-dropzone (change)="onSelect($event)" class="w-100"   
             
                   accept="image/jpeg,image/jpg,image/png,image/gif">
                   <ngx-dropzone-label>Photo
                     <i class="fa fa-upload" aria-hidden="true"></i>
                   </ngx-dropzone-label>
-                  <ngx-dropzone-image-preview [removable]="true"     
+                  <ngx-dropzone-image-preview [removable]="true"  
                     (removed)="onRemove(f)" ngProjectAs="ngx-dropzone-preview"
                     *ngFor="let f of files" [file]="f">
                     <ngx-dropzone-label>{{ f.name }} </ngx-dropzone-label>
@@ -98,8 +97,8 @@
                 </ngx-dropzone>
              
           
-                </div>
-                <button class="primary w-100" type="submit">save Recipe
+            </div >
+                <button class="primary w-100 mt-5" type="submit">save Recipe
                 </button>
 
             </form>

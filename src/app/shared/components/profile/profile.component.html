@@ -1,35 +1,95 @@
 <div class="container">
-    <div class="row justify-content-center align-items-center">
-        <div class="col-md-12 ">
-            <div class="DeleteContent p-3">
-               <i class="fa fa-close" aria-hidden="true" (click)="onNoClick()"></i>
-                   <div class=" text-center">
-                    <img [src]="data.imagePath?this.imgURL+data.imagePath:dumyImage"
-                     alt="" >
-                   </div>
-                  
-                  <h6 class="mt-2">
-                   User Name : {{data.userName}}
-                  </h6>
+    <div class="row  mt-5 p-3">
+        <div class="col-md-12   ">
+          
+            <form  [formGroup]="updatingProfileForm" (ngSubmit)="updatingProfile(updatingProfileForm)">
+                <div class="row">
+               
+                    <div class="col-md-4 text-center d-flex justify-content-center align-items-center">
+                        
+                        <img [src]="currentUSer?.imagePath?this.imgURL+currentUSer?.imagePath:dumyImage " alt="" >
+            </div>
+            <div class="col-md-8 ">
+                <div class="content p-3">
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+        
+                          <i class="fa fa-mobile" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control "
+                        value="{{currentUSer?.userName}}"
+                        formControlName="userName"
+                       
+                          placeholder="Enter your Name" aria-label="Username"
+                          aria-describedby="basic-addon1">
+                      </div>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+        
+                          <i class="fa fa-mobile" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control "
+                        value="{{currentUSer?.email}}"
+
+                       
+                        formControlName="email"
+                          placeholder="Enter your Name" aria-label="Username"
+                          aria-describedby="basic-addon1">
+                      </div>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+        
+                          <i class="fa fa-mobile" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control "
+                        value="{{currentUSer?.country}}"
+                        formControlName="country"
+                        
+                          placeholder="Enter your Name" aria-label="Username"
+                          aria-describedby="basic-addon1">
+                      </div>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+        
+                          <i class="fa fa-mobile" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control "
+                        value="{{currentUSer?.phoneNumber}}"
+                        formControlName="phoneNumber"
+                          placeholder="Enter your Name" aria-label="Username"
+                          aria-describedby="basic-addon1">
+                      </div>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+        
+                          <i class="fa fa-mobile" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control "
+                          formControlName="confirmPassword"
+                          placeholder="Confirm Password" aria-label="Username"
+                          aria-describedby="basic-addon1">
+                      </div>
+
+
+
+
+                
+                    <div class="update text-end">
+                        <button class="btn primary" type="submit"> Update Profile</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+          
+
+           
                  
-                  <p>
-                  Email : {{data.email}}
-                  </p>
-                  <p>Country :{{data.country}}</p>
-                  <p>Phone :{{data.phoneNumber}}</p>
-                  <p>Role :{{data.group.name}}</p>
-                  <p>Creation Date :{{data.creationDate|date}}</p>
-                  <p>Modification Date:{{data.modificationDate|date}}</p>
-                  <div class="d-flex justify-content-between">
-                    <button type="button" class="btn primary mb-2"
-                    (click)="onNoClick()"
-                    >OK</button>
-                    <button type="button" class="btn btn-outline-danger mb-2"
-                    [mat-dialog-close]="data.id"
-                    >Edit</button>
-                  </div>
+                 
                   
             </div>
         </div>
-    </div>
+    
 </div>
+

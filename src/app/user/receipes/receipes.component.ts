@@ -9,6 +9,7 @@ import { RecepiesService } from 'src/app/admin/receipes/services/Recepies.servic
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
 import { ViewUserREceipeComponent } from './components/view-user-receipe/view-user-receipe.component';
 import { FavoritesService } from '../favorites/services/favorites.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-receipes',
@@ -31,19 +32,26 @@ export class ReceipesComponent {
   //show cards
   showcards:boolean = true;
   //
-
+showRecipes:boolean =false ;
   listOfTags:ITag[]=[] ;
   listOfCategories:any[]=[];
   
 
-  constructor(private  ReceipeService:RecepiesService , 
+  constructor(private  ReceipeService:RecepiesService , private spinner: NgxSpinnerService,
     private _CategoryService:CategoryService , public dialog: MatDialog ,  private _router:Router ,
       private toastr: ToastrService , private _FavoritesService:FavoritesService){}
   
   ngOnInit() {
   this.getAllReceipes();
   this.getAllTags();
-this.getAllCategories()
+this.getAllCategories();
+this.spinner.show();
+ 
+setTimeout(() => {
+  /** spinner ends after 5 seconds */
+  this.showRecipes=true;
+  this.spinner.hide();
+}, 2000);
   
   }
 
@@ -77,18 +85,6 @@ getAllReceipes(){
    //dialog  for add new category
  
 
-  addNewReceipe(categoryName:string){
-    this.ReceipeService.AddRecipe(categoryName).subscribe({
-      next:(res)=>{
-        console.log(res)
-      }, error:()=>{
-        
-      }, complete:()=>{
-        // to load data again after adding new category
-        this.getAllReceipes();
-      }
-    });
-  }
   
   //delete receipe 
 

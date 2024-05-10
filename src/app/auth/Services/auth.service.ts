@@ -77,8 +77,12 @@ getCurrentuser():Observable<any>{
   return this._HttpClient.get('Users/currentUser')
 }
 //updating profile data 
-updatingProfile(userData:any):Observable<any>{
+updatingProfile(userData:FormData):Observable<any>{
   return this._HttpClient.put('Users' , userData)
 }
+changePAssword(userData:any):Observable<any>{
+  return this._HttpClient.put('Users/ChangePassword' , userData)
+}
+
 
 }

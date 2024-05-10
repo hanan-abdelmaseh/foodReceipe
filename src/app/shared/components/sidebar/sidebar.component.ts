@@ -18,6 +18,7 @@ interface IMenu {
 export class SidebarComponent {
   constructor(private _AuthService:AuthService){}
   // at first we need to check the role 
+  
   isAdmin():boolean{
     return this._AuthService.role == 'SuperAdmin'? true:false
   }

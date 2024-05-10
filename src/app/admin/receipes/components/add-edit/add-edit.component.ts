@@ -13,191 +13,173 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ADDEDITComponent implements OnInit {
   files: File[] = [];
-  tagID:any;
-  CategoryID:any;
-  listOfTags:any[]=[] ;
-  listOfCategories:any[]=[];
-  ImgStaticPath:string ="https://upskilling-egypt.com:3006/"
+  tagID: any;
+  CategoryID: any;
+  listOfTags: any[] = [];
+  listOfCategories: any[] = [];
+  ImgStaticPath: string = "https://upskilling-egypt.com:3006/"
 
-  imgSrc :any;
-  receipeId:number=0;
+  imgSrc: any;
+  receipeId: number = 0;
+  selectedcatID:number[]=[] ;
 
-  AddReceipeForm = new FormGroup({
-    name: new FormControl('' , Validators.required),
-    description: new FormControl('', Validators.required),
-    price: new FormControl('' , Validators.required),
+  /////
+  ReceipeForm = new FormGroup({
+    name: new FormControl(''),
+    description: new FormControl(''),
+    price: new FormControl(''),
     tagId: new FormControl(''),
-    recipeImage:new FormControl('' , Validators.required),
-    categoriesId:new FormControl('', Validators.required)
-   
-  //// 
+    recipeImage: new FormControl(''),
+    categoriesIds: new FormControl()
 
-
+    //// 
   });
 
   //receipe data 
-  newreceipeData:any ;
-   constructor(private _RecepiesService:RecepiesService, private _Router:Router , 
-    private _CategoryService:CategoryService,
-    private toastr: ToastrService  , private _ActivatedRoute:ActivatedRoute
+  newreceipeData: any;
+  constructor(private _RecepiesService: RecepiesService, private _Router: Router,
+    private _CategoryService: CategoryService,
+    private toastr: ToastrService, private _ActivatedRoute: ActivatedRoute
   ) {
-  //to get id of the selected item needed to be updated
-  this.receipeId=this._ActivatedRoute.snapshot.params['id'];
-  console.log(this.receipeId);
+     //to get id of the selected item needed to be updated
+     this.receipeId = this._ActivatedRoute.snapshot.params['id'];
+     console.log(this.receipeId);
+ 
+     if (this.receipeId) {
+       //edit 
+       this.getRecipeById(this.receipeId);
+ 
+     }
+     else {
+       //add
+       //this.AddReceipe()
+     }
 
   }
 
 
-    ngOnInit() {
-    
-      this.getAllTags();
-      this.getAllCategories();
-     
-
-       if(this.receipeId){
-        //edit 
-        this.getRecipeById(this.receipeId);
-
-  }
-  else{
-    //add
-     //this.AddReceipe()
-  }
+  ngOnInit() {
    
-      
-      }
-      
-  sendData(receipeinfo: FormGroup) {
-      //email:"hananabdelmaseh9@gmail.com" , password:"Hanan1$$"}
-      // we will use formdata as we want to upload image 
-  
-      let REceipeData = new FormData();
-  
-      REceipeData.append('name', receipeinfo.value.name);
-      REceipeData.append('description', receipeinfo.value.description);
-      REceipeData.append('price', receipeinfo.value.price);
-      REceipeData.append('tagId',this.tagID);
-      REceipeData.append('recipeImage', this.ImgStaticPath+this.imgSrc);
-      REceipeData.append('categoriesIds', this.CategoryID);
 
-      
-     
-  
-      console.log(REceipeData);
-  //in service if i make data:iregister here in component refuse it ?
-    if(this.receipeId){
-   this.updateReceipe(REceipeData);
-    }
-    else{
-      this._RecepiesService.AddRecipe(REceipeData).subscribe({
-        next: (res) => {
-          console.log(res);
-          this.toastr.success('your Receipe has been added ')
-        },
-        error:()=>{
-  
-        },
-        complete:()=>{
-          this._Router.navigateByUrl('dashboard/admin/receipes/all')
-        }
-      });
-    }
-     
-  
-    }
+    this.getAllTags();
+    this.getAllCategories();
+  }
 
-   getRecipeById(id:number){
+  getRecipeById(id: number) {
     this._RecepiesService.getReceipeById(id).subscribe({
       next: (res) => {
         console.log(res);
-       this.newreceipeData=res ;
+        this.newreceipeData = res;
       },
-      error:()=>{
-
+      error: () => {
       },
-      complete:()=>{
-
-        /*this.AddReceipeForm.patchValue({
+      complete: () => {
+      for(let i=0 ; i<this.newreceipeData.category.length ; i++){
+       this.selectedcatID.push(this.newreceipeData.category[i].id);
+      }
+      console.log(this.selectedcatID)
+        this.ReceipeForm.patchValue({
           name:this.newreceipeData.name ,
           description:this.newreceipeData.description,
           price:this.newreceipeData.price,
           tagId: this.newreceipeData.tag.id,
-          recipeImage:this.newreceipeData.recipeImage,
-          categoriesId:this.newreceipeData.category[0].id
-
-        })
-       */
-      }
-  
-    });
-   }
-
-    getAllTags(){
-      this._RecepiesService.getAllTags().subscribe({
-        
-        next:(res)=>{
-             console.log(res);
-             this.listOfTags= res
-            
-        },
-        error:()=>{
-  
-        },
-        complete:()=>{
-  
-        }
-      });
-  }
-  getAllCategories(){
-    this._CategoryService.getAllCategoriesForReceipes(1,10000).subscribe({
-      
-      next:(res)=>{
-           console.log(res);
-           console.log("hello from category")
-           this.listOfCategories= res.data
-          
-      },
-      error:()=>{
-  
-      },
-      complete:()=>{
-  
-      }
-    });
-  }
-    onSelect(event:any) {
-      console.log(event);
-      this.files.push(...event.addedFiles);
-      this.imgSrc = this.files[0];
-    }
-    
-    onRemove(event:any) {
-      console.log(event);
-      this.files.splice(this.files.indexOf(event), 1);
-    }
-
-    //updating receipe 
-
-    updateReceipe(receipeData:any){
-      this._RecepiesService.updateRecipe(receipeData.value).subscribe({
-        next:(res)=>{
-          console.log(res)
-        }, error:()=>{
-          
-        }, complete:()=>{
-          this.toastr.success("item has been updated") ;
-         
-          
-        
-        }
-      });
-    }
-
-
-    /// 
-
-  
-   
-  }
+          recipeImage:this.newreceipeData.imagePath,
+          categoriesIds:this.selectedcatID
  
+        });
+        console.log(this.ReceipeForm);
+       
+      }
+
+    });
+  }
+
+  sendData(receipeinfo: FormGroup) {
+    //email:"hananabdelmaseh9@gmail.com" , password:"Hanan1$$"}
+    // we will use formdata as we want to upload image 
+    console.log(receipeinfo.value)
+    if(this.receipeId){
+      // -update  
+       this.updateReceipe( this.receipeId ,receipeinfo.value);
+    }
+    else{
+/// add new recipe 
+       this.addNewRecipe(receipeinfo.value);
+    }
+
+  }
+
+  addNewRecipe(receipeData: any){
+    this._RecepiesService.AddRecipe(receipeData).subscribe( {
+      next: (res) => {
+      console.log(res)
+    }, error: () => {
+
+    }, complete: () => {
+      this.toastr.success("item has been added");
+    }
+    });
+  }
+  //updating receipe
+  updateReceipe( id:number , receipeData: FormData ) {
+    this._RecepiesService.updateRecipe(id , receipeData).subscribe({
+      next: (res) => {
+        console.log(res)
+      }, error: () => {
+
+      }, complete: () => {
+        this.toastr.success("item has been updated");
+      }
+    });
+  }
+
+
+  /// 
+  getAllTags() {
+    this._RecepiesService.getAllTags().subscribe({
+
+      next: (res) => {
+        console.log(res);
+        this.listOfTags = res
+
+      },
+      error: () => {
+
+      },
+      complete: () => {
+
+      }
+    });
+  }
+  getAllCategories() {
+    this._CategoryService.getAllCategoriesForReceipes(1, 10000).subscribe({
+
+      next: (res) => {
+        console.log(res);
+        console.log("hello from category")
+        this.listOfCategories = res.data
+
+      },
+      error: () => {
+
+      },
+      complete: () => {
+
+      }
+    });
+  }
+  onSelect(event: any) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+    this.imgSrc = this.files[0];
+  }
+
+  onRemove(event: any) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+
+
+}
+
 

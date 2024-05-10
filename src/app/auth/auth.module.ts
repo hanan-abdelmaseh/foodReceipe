@@ -9,6 +9,7 @@ import { ResetPasswordComponent } from './Components/reset-password/reset-passwo
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { VerifyComponent } from './Components/verify/verify.component';
+import { ChangePassComponent } from './Components/change-pass/change-pass.component';
 
 
 @NgModule({
@@ -18,13 +19,17 @@ import { VerifyComponent } from './Components/verify/verify.component';
     RegisterComponent,
     ForgetPasswordComponent,
     ResetPasswordComponent,
-    VerifyComponent
+    VerifyComponent,
+    ChangePassComponent
   ],
   imports: [
     CommonModule,
     AuthRoutingModule , 
     ReactiveFormsModule ,
     SharedModule
+  ] , 
+  exports:[
+    ChangePassComponent
   ]
 })
 export class AuthModule { }

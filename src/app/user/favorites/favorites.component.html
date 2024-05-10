@@ -37,55 +37,65 @@
                         <p>You can check all details</p>
                     </div>
                 </div>
-             
+
             </div>
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <div class="showIcons text-end">
-                        <button  class="btn "  (click)="showcard()">
-                            <mat-icon>
-                                dashboard
-                            </mat-icon>
-                        </button>
-                        <button class="btn" (click)="showTable()">
-                            <mat-icon>
-                                list
-                            </mat-icon>
-                        </button>
+            <ng-container *ngIf="listOfFav?.data.length >0">
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="showIcons text-end">
+                            <button class="btn " (click)="showcard()">
+                                <mat-icon>
+                                    dashboard
+                                </mat-icon>
+                            </button>
+                            <button class="btn" (click)="showTable()">
+                                <mat-icon>
+                                    list
+                                </mat-icon>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-           
-            <div class="row">
-              
-               
-                <ng-container *ngIf="showcards">
-                <div class="col-md-3"  *ngFor="let item of listOfFav?.data">
-                
-                       
-                    <div class="card mb-3 " >
-                        <img class="card-img-top"
-                          [src]="item.recipe.imagePath?imgURL+item.recipe.imagePath:dumyImage " alt="Card image cap">
-                        <div class="card-body">
-                          <h5 class="card-title">{{item.recipe.name}}</h5>
-                          <p class="card-text mb-3">{{item.recipe.description}}</p>
-                          <div class="links d-flex justify-content-between">
 
-                            <a  class="me-5" (click)="daletefromfave(item.id)">
-                               <mat-icon>delete_sweep</mat-icon>
-                            </a>
-                            <a >
-                                <mat-icon (click)="openViewDialog(item.recipe)">visibility</mat-icon></a>
-                                
-                          </div>
-                          
-                        </div>
-                      </div>
-                </div>
-              
+            </ng-container>
+
+            <div class="row">
+
+                <ng-container *ngIf="listOfFav?.data.length ==0 ">
+                    <app-no-data></app-no-data>
                 </ng-container>
-              
-                <ng-container *ngIf="!showcards">
+
+                <ng-container *ngIf="showcards && listOfFav?.data.length >0">
+                    <div class="col-md-3" *ngFor="let item of listOfFav?.data">
+
+                        <div class="card mb-3 ">
+                            <img class="card-img-top"
+                                [src]="item.recipe.imagePath?imgURL+item.recipe.imagePath:dumyImage "
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">{{item.recipe.name}}</h5>
+                                <p
+                                    class="card-text mb-3">{{item.recipe.description}}</p>
+                                <div
+                                    class="links d-flex justify-content-between">
+
+                                    <a class="me-5"
+                                        (click)="daletefromfave(item.id)">
+                                        <mat-icon>delete_sweep</mat-icon>
+                                    </a>
+                                    <a>
+                                        <mat-icon
+                                            (click)="openViewDialog(item.recipe)">visibility</mat-icon></a>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </ng-container>
+
+                <ng-container *ngIf="!showcards && listOfFav?.data.length >0">
                     <table class="table mt-2 changeTableStyle">
                         <thead>
                             <tr>
@@ -95,18 +105,18 @@
                                 <th>Description</th>
                                 <th>Tag</th>
                                 <th>Category</th>
-    
+
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody  *ngIf="listOfFav?.data.length>0">
-    
+                        <tbody *ngIf="listOfFav?.data.length>0">
+
                             <tr *ngFor="let item of listOfFav.data">
                                 <td>{{item.recipe.name}}</td>
-    
-                                <td >
+
+                                <td>
                                     <img class="tableImg"
-                                    [src]="item.recipe.imagePath?imgURL+item.recipe.imagePath:dumyImage "
+                                        [src]="item.recipe.imagePath?imgURL+item.recipe.imagePath:dumyImage "
                                         alt>
                                 </td>
                                 <td>{{item.recipe.price}}</td>
@@ -115,11 +125,12 @@
                                     {{item.recipe.tag.name}}
                                 </td>
                                 <td>
-                                    <span *ngFor="let category of item.recipe.category">
+                                    <span
+                                        *ngFor="let category of item.recipe.category">
                                         {{category.name}}
                                     </span>
                                 </td>
-    
+
                                 <td>
                                     <button mat-icon-button
                                         [matMenuTriggerFor]="menu"
@@ -127,41 +138,33 @@
                                         <mat-icon>more_vert</mat-icon>
                                     </button>
                                     <mat-menu #menu="matMenu">
-                                        <button mat-menu-item>
-                                            <mat-icon>visibility</mat-icon>
+                                        <button mat-menu-item
+                                            (click)="openViewDialog(item.recipe)">
+                                            <mat-icon> visibility</mat-icon>
                                             <span>View</span>
                                         </button>
-                                        
-                                       
+
                                     </mat-menu>
                                 </td>
                             </tr>
-    
+
                         </tbody>
                     </table>
+
+                   
+
+                </ng-container>
+                <ng-container *ngIf="listOfFav?.data.length >0">
+
                   
-                    
-                <mat-paginator
-                #paginator
-                (page)="pageChangeEvent($event)"
-                [length]="listOfFav?.totalNumberOfRecords"
-               
-                [pageSize]="pageSize"
-                [pageIndex]="pageNumber"
-                [pageSizeOptions]="[5, 10]" aria-label="Select page">
-            </mat-paginator>
-                  </ng-container>
 
-            
-
-               
-                
-
+                </ng-container>
             </div>
-            
+
         </div>
     </div>
+    <ngx-spinner bdColor="rgba(7,1,1,0.95)" size="small" type="ball-scale-multiple">
+        <p style="color: white">Loading Your Favorites </p>
+    </ngx-spinner>
 
 </section>
-
-

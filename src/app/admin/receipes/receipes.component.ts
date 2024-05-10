@@ -13,7 +13,7 @@ import { CategoryService } from '../categories/services/category.service';
 import { Router } from '@angular/router';
 import { ViewReceipeComponent } from './components/view-receipe/view-receipe.component';
 import { ADDEDITComponent } from './components/add-edit/add-edit.component';
-import { EditReceipComponent } from './components/edit-receip/edit-receip.component';
+
 
 @Component({
   selector: 'app-receipes',
@@ -36,6 +36,10 @@ export class ReceipesComponent  implements OnInit{
   validData:boolean = false;
   listOfTags:ITag[]=[] ;
   listOfCategories:any[]=[];
+
+  showcards:boolean = false;
+  //
+
   
 
   constructor(private  ReceipeService:RecepiesService , 
@@ -92,23 +96,7 @@ getReceipeById(id:any){
   })
 }
   /////////update 
-  openUpdateDialog( updatedData:any): void {
-    const dialogRef = this.dialog.open(EditReceipComponent, {
 
-      data:updatedData  ,
-    });
-    //need to handle name ?
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-       console.log( result);
-       //check result 
-       if(result){
-         //this.updateReceipe(result);
-       
-        
-       }
-    });
-  }
   // updateReceipe(receipeData:any){
   //   this.ReceipeService.updateRecipe(receipeData).subscribe({
   //     next:(res)=>{
@@ -215,6 +203,14 @@ openViewDialog(receipeDate:any) {
 resetSearcgInput(){
   this.SearchValue= '';
   this.getAllReceipes();
+}
+
+
+showcard(){
+  this.showcards = true ;
+}
+showTable(){
+ this.showcards= false
 }
 
 }

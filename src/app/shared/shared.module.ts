@@ -24,6 +24,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import {MatCardModule} from '@angular/material/card';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -59,9 +60,9 @@ import {MatCardModule} from '@angular/material/card';
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    MatCardModule
+    MatCardModule,
 
-
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
 
 
 
@@ -93,7 +94,7 @@ import {MatCardModule} from '@angular/material/card';
     NoDataComponent,
   
     MatCardModule,
-
+    NgxSpinnerModule 
   ]
 })
 export class SharedModule { }

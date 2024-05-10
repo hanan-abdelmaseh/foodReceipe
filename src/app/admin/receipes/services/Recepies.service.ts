@@ -24,18 +24,18 @@ export class RecepiesService {
     return this._HttpClient.delete("Recipe/"+id);
   }
 
-  //post 
-  AddRecipe(ReceipeName:any):Observable<any>{
-    return this._HttpClient.post('Recipe',ReceipeName);
-  }
+  
   getAllTags():Observable<any>{
     //we need tags to use it to filter data 
   return this._HttpClient.get('tag');
   }
-
+//post 
+AddRecipe(Receipe:FormData):Observable<any>{
+  return this._HttpClient.post('Recipe',Receipe);
+}
   //update receipe
-updateRecipe(receipeDate:any ):Observable<any>{
-    return this._HttpClient.put("Recipe/",receipeDate)
+updateRecipe(id:number ,receipeDate:FormData ):Observable<any>{
+    return this._HttpClient.put(`Recipe/${id}`,receipeDate)
   }
   
 

@@ -39,7 +39,9 @@
                 </div>
              
             </div>
+           
             <div class="row mt-3">
+                <ng-container *ngIf="listOfReceipes?.data.length >0">
                 <div class="col-md-12">
                     <div class="showIcons text-end">
                         <button  class="btn "  (click)="showcard()">
@@ -54,6 +56,7 @@
                         </button>
                     </div>
                 </div>
+</ng-container>
                 <div class="col-md-6">
                     <!--search-->
                     <mat-form-field class="example-form-field"
@@ -93,13 +96,17 @@
                                 [value]="category.id">{{category.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
+                    
                 </div>
             </div>
-            
+       
             <div class="row">
               
-               
-                <ng-container *ngIf="showcards">
+               <ng-container *ngIf="listOfReceipes?.data.length == 0">
+            <app-no-data></app-no-data>
+            </ng-container>
+                <ng-container *ngIf="showcards && listOfReceipes?.data.length>0">
+
                 <div class="col-md-3"  *ngFor="let item of listOfReceipes?.data">
                 
                        
@@ -108,7 +115,7 @@
                           [src]="item.imagePath?imgURL+item.imagePath:dumyImage " alt="Card image cap">
                         <div class="card-body">
                           <h5 class="card-title">{{item.name}}</h5>
-                          <p class="card-text mb-3">{{item.description}}</p>
+                          <p class="card-text mb-3">{{item.price|currency}}</p>
                           <div class="links d-flex justify-content-between">
 
                             <a  class="me-5" (click)="addToFav(item.id)">
@@ -131,7 +138,7 @@
                 [pageSizeOptions]="[5, 10]" aria-label="Select page">
             </mat-paginator>
                 </ng-container>
-                <ng-container *ngIf="!showcards">
+                <ng-container *ngIf="!showcards && listOfReceipes?.data.length>0">
                     <table class="table mt-2 changeTableStyle">
                         <thead>
                             <tr>
@@ -173,7 +180,7 @@
                                         <mat-icon>more_vert</mat-icon>
                                     </button>
                                     <mat-menu #menu="matMenu">
-                                        <button mat-menu-item>
+                                        <button mat-menu-item (click)="openViewDialog(receipe)">
                                             <mat-icon>visibility</mat-icon>
                                             <span>View</span>
                                         </button>
@@ -200,7 +207,7 @@
 
                 
 
-                <!--pagination-->
+              
 
 
             </div>
@@ -209,3 +216,6 @@
 
 </section>
 
+<ngx-spinner bdColor="rgba(7,1,1,0.95)" size="small" type="ball-scale-multiple">
+    <p style="color: white">Loading Recipes </p>
+</ngx-spinner>

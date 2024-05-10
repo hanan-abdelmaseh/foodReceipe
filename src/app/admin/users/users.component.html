@@ -92,6 +92,11 @@
     
            
             <div class="row">
+                <ng-container *ngIf="listOfUsers?.data.length == 0">
+                    <app-no-data></app-no-data>
+                </ng-container>
+                <ng-container
+                *ngIf="listOfUsers?.data.length>0">
                 <table class="table mt-2 changeTableStyle">
                     <thead>
                         <tr>
@@ -152,6 +157,7 @@
                     [pageIndex]="pageNumber"
                     [pageSizeOptions]="[5, 10]" aria-label="Select page">
                 </mat-paginator>
+                </ng-container>
             </div>
         
             

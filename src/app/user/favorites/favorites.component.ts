@@ -9,6 +9,8 @@ import { RecepiesService } from 'src/app/admin/receipes/services/Recepies.servic
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
 import { ViewUserREceipeComponent } from '../receipes/components/view-user-receipe/view-user-receipe.component';
 import { FavoritesService } from './services/favorites.service';
+import { ViewFavReceipeComponent } from './components/view-fav-receipe/view-fav-receipe.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-favorites',
@@ -18,7 +20,7 @@ import { FavoritesService } from './services/favorites.service';
 export class FavoritesComponent {
   pageNumber:number = 1;
   pageSize:number=10;
-  listOfReceipes :any ;
+
   imgURL:string= 'https://upskilling-egypt.com:3006/';
   dumyImage:string="../../../assets/images/dumy.jpg";
   //search 
@@ -31,21 +33,33 @@ export class FavoritesComponent {
   //show cards
   showcards:boolean = true;
   //
-listOfFav:any;
+
+
+  listOfFav:any;
   listOfTags:ITag[]=[] ;
   listOfCategories:any[]=[];
   
-
+  showfavs:boolean =false ;
   constructor(private  ReceipeService:RecepiesService , 
     private _CategoryService:CategoryService , public dialog: MatDialog ,  private _router:Router ,
-      private toastr: ToastrService , private _FavoritesService:FavoritesService){}
+      private toastr: ToastrService , private spinner: NgxSpinnerService, 
+      private _FavoritesService:FavoritesService){}
   
   ngOnInit() {
   this.getAllfavs();
   this.getAllTags();
-this.getAllCategories()
+this.getAllCategories();
+this.spinner.show();
+ 
+setTimeout(() => {
+  /** spinner ends after 5 seconds */
+  this.showfavs=true;
+  this.spinner.hide();
+}, 2000);
   
   }
+  
+  
 
 getAllfavs(){
   
@@ -56,7 +70,7 @@ getAllfavs(){
              this.listOfFav= res;
         
              console.log(this.listOfFav);
-             
+             console.log(this.listOfFav.data)
             
             
         },
@@ -68,7 +82,7 @@ getAllfavs(){
         }
       });
   }
-   //dialog  for add new category
+   
  
   
   //delete receipe 
@@ -137,69 +151,13 @@ getAllCategories(){
     }
   });
 }
-/////////////////////////////////////////////////////////////////////////
 
-  /*
- 
- 
-
-  //get by id
-  //view category  not completetd
-  openViewDialog(viewId:number , Categoryname:string , creation:string , updating:string):void {
-    const dialogRef = this.dialog.open(ViewComponent, {
-      data: {id:viewId , name:Categoryname , creationDate:creation ,updatingDate:updating},
-    });
-  }
-  getCategoryByID(id:number){
-    this._CategoryService.getCategoryById(id).subscribe({
-      next:(res)=>{
-        console.log(res)
-      },
-      error:()=>{},
-      complete:()=>{
-        //this.getAllCategories();
-      },
-  
-    })
-     
-  }
 
 /////////////////////////////////////////////////////////////////////////
 
-  /////////update 
-  openUpdateDialog(updateID:number ,updatedValue:string ): void {
-    const dialogRef = this.dialog.open(AddEditCategoriesComponent, {
 
-      data: {id:updateID ,name: updatedValue } ,
-    });
-    //need to handle name ?
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-       console.log( result);
-       //check result 
-       if(result){
-        this.updateCategory(updateID ,result);
-        this.toastr.success('your category Has been updated');
-       }
-    });
-  }
-  updateCategory(id:number ,categoryName:string){
-    this._CategoryService.updateCetegory(id,categoryName).subscribe({
-      next:(res)=>{
-        console.log(res)
-      }, error:()=>{
-        
-      }, complete:()=>{
-        // to load data again after adding new category
-        this.getAllCategories();
-      }
-    });
-  }
  
-//sort data 
 
-
-*/
  //////////////////////////////////////////////////////////////////////
  //pagination 
  pageChangeEvent(event: PageEvent) {
@@ -219,7 +177,7 @@ showcard(){
  }
  ////view dialog 
  openViewDialog(userdata:any):void {
-  const dialogRef = this.dialog.open(ViewUserREceipeComponent, {
+  const dialogRef = this.dialog.open(ViewFavReceipeComponent, {
     data:userdata,
   });
 }

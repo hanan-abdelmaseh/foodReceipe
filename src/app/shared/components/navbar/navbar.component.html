@@ -21,10 +21,10 @@
              <i class="fa fa-angle-down" aria-hidden="true"></i>
             </button>
             <mat-menu #aboveMenu="matMenu" yPosition="above">
-                <button mat-menu-item (click)="openProfileDialog(userData)">
+                <button mat-menu-item (click)="gotoProfile()">
                     <mat-icon>person</mat-icon>
                     Profile</button>
-                <button mat-menu-item >
+                <button mat-menu-item  (click)="goToChangePAss()">
                     <mat-icon>lock</mat-icon>
                     Change Password</button>
                 <button

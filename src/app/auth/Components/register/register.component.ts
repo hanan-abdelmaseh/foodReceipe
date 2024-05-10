@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegisterComponent implements OnInit {
 
+  
   imgSrc :any;
   registerForm = new FormGroup({
     userName: new FormControl('' , Validators.required),
