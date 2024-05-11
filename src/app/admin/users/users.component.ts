@@ -43,6 +43,7 @@ export class UsersComponent {
   ngOnInit() {
   this.getAllUsers()
   this.showSpinner()
+  
   }
 
 getAllUsers(){
