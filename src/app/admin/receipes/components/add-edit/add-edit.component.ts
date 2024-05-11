@@ -23,17 +23,21 @@ export class ADDEDITComponent implements OnInit {
   receipeId: number = 0;
   selectedcatID:number[]=[] ;
 
-  /////
-  ReceipeForm = new FormGroup({
-    name: new FormControl(''),
-    description: new FormControl(''),
-    price: new FormControl(''),
-    tagId: new FormControl(''),
-    recipeImage: new FormControl(''),
-    categoriesIds: new FormControl()
+  image !:any;
+  data: { [key: string]: any } = {
+    name: "",
+    description: "",
+    price: null,
+    tagId: null,
+    categoriesIds: [],
+    recipeImage: null,
+  }
 
-    //// 
-  });
+  /////
+  ReceipeForm!: FormGroup; 
+
+  /////
+ 
 
   //receipe data 
   newreceipeData: any;
@@ -59,7 +63,17 @@ export class ADDEDITComponent implements OnInit {
 
 
   ngOnInit() {
-   
+    this.ReceipeForm = new FormGroup({
+      name: new FormControl(this.data['name']),
+      description: new FormControl(this.data['description']),
+      price: new FormControl(this.data['price']),
+      tagId: new FormControl(this.data['tagId']),
+      recipeImage: new FormControl(this.data['recipeImage']),
+      categoriesIds: new FormControl(this.data['categoriesIds'])
+  
+      //// 
+    });
+
 
     this.getAllTags();
     this.getAllCategories();
@@ -77,16 +91,18 @@ export class ADDEDITComponent implements OnInit {
       for(let i=0 ; i<this.newreceipeData.category.length ; i++){
        this.selectedcatID.push(this.newreceipeData.category[i].id);
       }
-      console.log(this.selectedcatID)
-        this.ReceipeForm.patchValue({
-          name:this.newreceipeData.name ,
-          description:this.newreceipeData.description,
-          price:this.newreceipeData.price,
-          tagId: this.newreceipeData.tag.id,
-          recipeImage:this.newreceipeData.imagePath,
-          categoriesIds:this.selectedcatID
- 
-        });
+      
+       this.fetchImge(this.ImgStaticPath+this.newreceipeData.imagePath);
+   console.log(this.ImgStaticPath+this.newreceipeData.imagePath)
+      this.ReceipeForm.patchValue({
+        name: this.newreceipeData.name,
+        description: this.newreceipeData.description,
+        price: this.newreceipeData.price,
+        tagId: this.newreceipeData.tag.id,
+        recipeImage: this.newreceipeData.imagePath,
+        categoriesIds: this.selectedcatID
+
+      });
         console.log(this.ReceipeForm);
        
       }
@@ -97,16 +113,23 @@ export class ADDEDITComponent implements OnInit {
   sendData(receipeinfo: FormGroup) {
     //email:"hananabdelmaseh9@gmail.com" , password:"Hanan1$$"}
     // we will use formdata as we want to upload image 
-    console.log(receipeinfo.value)
-    if(this.receipeId){
-      // -update  
-       this.updateReceipe( this.receipeId ,receipeinfo.value);
-    }
-    else{
-/// add new recipe 
-       this.addNewRecipe(receipeinfo.value);
+    let data = new FormData();
+
+    for (let key in this.ReceipeForm.value) {
+      if (key === "recipeImage") continue;
+      data.append(key, this.ReceipeForm.value[key]);
     }
 
+    if (this.imgSrc) data.append("recipeImage", this.imgSrc);
+
+    if (this.receipeId) {
+      // -update  
+      this.updateReceipe(this.receipeId, data);
+    }
+    else {
+      /// add new recipe 
+      this.addNewRecipe(data);
+    }
   }
 
   addNewRecipe(receipeData: any){
@@ -171,7 +194,7 @@ export class ADDEDITComponent implements OnInit {
   onSelect(event: any) {
     console.log(event);
     this.files.push(...event.addedFiles);
-    this.imgSrc = this.files[0];
+    this.image = this.files[0];
   }
 
   onRemove(event: any) {
@@ -179,7 +202,11 @@ export class ADDEDITComponent implements OnInit {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-
+    async fetchImge(url:string){
+var res =await fetch(url) ;
+var blob = await res.blob() ;
+this.image = blob;
+   }
 }
 
 

@@ -59,7 +59,7 @@ export class SidebarComponent {
     },
     {
       text:'Receipes',
-      icon:'fa fa-heart' ,
+      icon:'fa fa-object-group' ,
       link:'/dashboard/user/receipes',
       isActive:this.isUser()
     },

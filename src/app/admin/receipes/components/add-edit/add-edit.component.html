@@ -90,9 +90,13 @@
                     <i class="fa fa-upload" aria-hidden="true"></i>
                   </ngx-dropzone-label>
                   <ngx-dropzone-image-preview [removable]="true"  
-                    (removed)="onRemove(f)" ngProjectAs="ngx-dropzone-preview"
-                    *ngFor="let f of files" [file]="f">
-                    <ngx-dropzone-label>{{ f.name }} </ngx-dropzone-label>
+                  *ngIf="image"
+                    [file]="image"
+
+                    [removable]="true"
+                    (removed)="onRemove(image)" ngProjectAs="ngx-dropzone-preview"
+                    >
+                  
                   </ngx-dropzone-image-preview>
                 </ngx-dropzone>
              

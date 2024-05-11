@@ -13,6 +13,7 @@ import { CategoryService } from '../categories/services/category.service';
 import { Router } from '@angular/router';
 import { ViewReceipeComponent } from './components/view-receipe/view-receipe.component';
 import { ADDEDITComponent } from './components/add-edit/add-edit.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class ReceipesComponent  implements OnInit{
 
   
 
-  constructor(private  ReceipeService:RecepiesService , 
+  constructor(private  ReceipeService:RecepiesService , private spinnerService: NgxSpinnerService,
     private _CategoryService:CategoryService , public dialog: MatDialog ,  private _router:Router ,
       private toastr: ToastrService){}
   
@@ -50,7 +51,7 @@ export class ReceipesComponent  implements OnInit{
   this.getAllReceipes();
   this.getAllTags();
 this.getAllCategories()
-  
+this.showSpinner();
   }
 
 getAllReceipes(){
@@ -212,5 +213,11 @@ showcard(){
 showTable(){
  this.showcards= false
 }
+public showSpinner(): void {
+  this.spinnerService.show();
 
+  setTimeout(() => {
+    this.spinnerService.hide();
+  }, 2000); // 5 seconds
+}
 }

@@ -9,6 +9,7 @@ import { ITag } from '../receipes/interfaces/model';
 
 import { UsersService } from './Services/Users.service';
 import { ViewUserComponent } from './components/view-user/view-user.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-users',
@@ -37,11 +38,11 @@ export class UsersComponent {
 
   constructor(  
     private _UsersService:UsersService , public dialog: MatDialog ,  private _router:Router ,
-      private toastr: ToastrService){}
+      private toastr: ToastrService ,  private spinnerService: NgxSpinnerService,){}
   
   ngOnInit() {
   this.getAllUsers()
-  
+  this.showSpinner()
   }
 
 getAllUsers(){
@@ -135,4 +136,14 @@ resetSearcgInput(){
   this.SearchValue= '';
   this.getAllUsers();
 }
+
+
+public showSpinner(): void {
+  this.spinnerService.show();
+
+  setTimeout(() => {
+    this.spinnerService.hide();
+  }, 2000); // 5 seconds
+}
+ 
 }

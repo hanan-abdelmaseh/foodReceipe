@@ -229,8 +229,8 @@
                         #paginator
                         (page)="pageChangeEvent($event)"
                         [length]="listOfReceipes?.totalNumberOfRecords"
-                        [pageSize]="pageSize"
-                        [pageIndex]="pageNumber"
+                        [pageSize]="listOfReceipes.pageSize"
+                        [pageIndex]="listOfReceipes.pageNumber"
                         [pageSizeOptions]="[5, 10]" aria-label="Select page">
                     </mat-paginator>
                 </ng-container>
@@ -239,3 +239,6 @@
     </div>
 
 </section>
+<ngx-spinner  size="small" type="ball-scale-multiple">
+    <p style="color: rgb(20, 20, 20)">Loading Your Receipes </p>
+</ngx-spinner>

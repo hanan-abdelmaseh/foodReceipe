@@ -110,13 +110,16 @@
                     #paginator
                     (page)="pageChangeEvent($event)"
                     [length]="listOfCAtegories?.totalNumberOfRecords"
+                    [pageIndex]="1"
                     [pageSize]="pageSize"
-                    [pageIndex]="pageNumber"
                     [pageSizeOptions]="[5, 10]" aria-label="Select page">
                 </mat-paginator>
                
-            </div>
+            </div>  
         </div>
     </div>
 
 </section>
+<ngx-spinner  size="small" type="ball-scale-multiple">
+    <p style="color: rgb(20, 20, 20)">Loading Your Categories </p>
+</ngx-spinner>

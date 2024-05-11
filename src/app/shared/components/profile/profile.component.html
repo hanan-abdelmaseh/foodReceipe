@@ -1,95 +1,95 @@
 <div class="container">
-    <div class="row  mt-5 p-3">
-        <div class="col-md-12   ">
-          
-            <form  [formGroup]="updatingProfileForm" (ngSubmit)="updatingProfile(updatingProfileForm)">
-                <div class="row">
-               
-                    <div class="col-md-4 text-center d-flex justify-content-center align-items-center">
-                        
-                        <img [src]="currentUSer?.imagePath?this.imgURL+currentUSer?.imagePath:dumyImage " alt="" >
-            </div>
-            <div class="col-md-8 ">
-                <div class="content p-3">
-                    
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">
-        
-                          <i class="fa fa-mobile" aria-hidden="true"></i>
-                        </span>
-                        <input type="text" class="form-control "
-                        value="{{currentUSer?.userName}}"
-                        formControlName="userName"
-                       
-                          placeholder="Enter your Name" aria-label="Username"
-                          aria-describedby="basic-addon1">
-                      </div>
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">
-        
-                          <i class="fa fa-mobile" aria-hidden="true"></i>
-                        </span>
-                        <input type="text" class="form-control "
-                        value="{{currentUSer?.email}}"
+  <div class="row  mt-5 p-3">
+    <div class="col-md-12   ">
 
-                       
-                        formControlName="email"
-                          placeholder="Enter your Name" aria-label="Username"
-                          aria-describedby="basic-addon1">
-                      </div>
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">
-        
-                          <i class="fa fa-mobile" aria-hidden="true"></i>
-                        </span>
-                        <input type="text" class="form-control "
-                        value="{{currentUSer?.country}}"
-                        formControlName="country"
-                        
-                          placeholder="Enter your Name" aria-label="Username"
-                          aria-describedby="basic-addon1">
-                      </div>
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">
-        
-                          <i class="fa fa-mobile" aria-hidden="true"></i>
-                        </span>
-                        <input type="text" class="form-control "
-                        value="{{currentUSer?.phoneNumber}}"
-                        formControlName="phoneNumber"
-                          placeholder="Enter your Name" aria-label="Username"
-                          aria-describedby="basic-addon1">
-                      </div>
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">
-        
-                          <i class="fa fa-mobile" aria-hidden="true"></i>
-                        </span>
-                        <input type="text" class="form-control "
-                          formControlName="confirmPassword"
-                          placeholder="Confirm Password" aria-label="Username"
-                          aria-describedby="basic-addon1">
-                      </div>
+      <form [formGroup]="updatingProfileForm"
+        (ngSubmit)="updatingProfile(updatingProfileForm)">
+        <div class="row">
 
+          <div
+            class="col-md-4 text-center d-flex justify-content-center align-items-center">
+            <ngx-dropzone (change)="onSelect($event)" class="w-100"   
+            
+                  accept="image/jpeg,image/jpg,image/png,image/gif">
+                  <ngx-dropzone-label>Photo
+                    <i class="fa fa-upload" aria-hidden="true"></i>
+                  </ngx-dropzone-label>
+                  <ngx-dropzone-image-preview [removable]="true"  
+                  *ngIf="image"
+                    [file]="image"
 
-
-
-                
-                    <div class="update text-end">
-                        <button class="btn primary" type="submit"> Update Profile</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </form>
-          
-
-           
-                 
-                 
+                    [removable]="true"
+                    (removed)="onRemove(image)" ngProjectAs="ngx-dropzone-preview"
+                    >
                   
-            </div>
-        </div>
-    
-</div>
+                  </ngx-dropzone-image-preview>
+                </ngx-dropzone>
+          </div>
+          <div class="col-md-8 ">
+            <div class="content p-3">
 
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+
+                  <i class="fa fa-mobile" aria-hidden="true"></i>
+                </span>
+                <input type="text" class="form-control "
+                  value="{{currentUSer?.userName}}"
+                  formControlName="userName"
+                  placeholder="Enter your Name" aria-label="Username"
+                  aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+
+                  <i class="fa fa-mobile" aria-hidden="true"></i>
+                </span>
+                <input type="text" class="form-control "
+                  formControlName="email"
+                  placeholder="Enter your Name" aria-label="Username"
+                  aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+
+                  <i class="fa fa-mobile" aria-hidden="true"></i>
+                </span>
+                <input type="text" class="form-control "
+                  formControlName="country"
+                  placeholder="Enter your Name" aria-label="Username"
+                  aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+
+                  <i class="fa fa-mobile" aria-hidden="true"></i>
+                </span>
+                <input type="text" class="form-control "
+                  formControlName="phoneNumber"
+                  placeholder="Enter your Name" aria-label="Username"
+                  aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+
+                  <i class="fa fa-mobile" aria-hidden="true"></i>
+                </span>
+                <input type="text" class="form-control "
+                  formControlName="confirmPassword"
+                  placeholder="Confirm Password" aria-label="Username"
+                  aria-describedby="basic-addon1">
+              </div>
+
+              <div class="update text-end">
+                <button class="btn primary" type="submit"> Update
+                  Profile</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+</div>

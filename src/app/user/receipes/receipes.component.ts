@@ -37,7 +37,7 @@ showRecipes:boolean =false ;
   listOfCategories:any[]=[];
   
 
-  constructor(private  ReceipeService:RecepiesService , private spinner: NgxSpinnerService,
+  constructor(private  ReceipeService:RecepiesService , private spinnerService: NgxSpinnerService,
     private _CategoryService:CategoryService , public dialog: MatDialog ,  private _router:Router ,
       private toastr: ToastrService , private _FavoritesService:FavoritesService){}
   
@@ -45,16 +45,22 @@ showRecipes:boolean =false ;
   this.getAllReceipes();
   this.getAllTags();
 this.getAllCategories();
-this.spinner.show();
- 
-setTimeout(() => {
-  /** spinner ends after 5 seconds */
-  this.showRecipes=true;
-  this.spinner.hide();
-}, 2000);
-  
+
+
+
+
+  this.showSpinner();
+
   }
 
+ public showSpinner(): void {
+    this.spinnerService.show();
+  
+    setTimeout(() => {
+      this.spinnerService.hide();
+    }, 2000); // 5 seconds
+  }
+   
 getAllReceipes(){
   //to applay search 
   let params={

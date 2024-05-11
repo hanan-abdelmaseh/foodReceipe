@@ -17,11 +17,12 @@ export class NavbarComponent implements OnInit {
   userImag:string|null ="" ;
   apiImagePath:string = 'https://upskilling-egypt.com:3006/';
   dumyImage:string="../../../../../assets/images/profileDumy.jpg";
-  mainImag:string ='';
+  mainImag:any;
     userData:any ;
   constructor(public dialog: MatDialog , private _AuthService:AuthService ,private _Router:Router){}
   ngOnInit() {
-      this.getUser();
+      this.getUser(); 
+      this.getPicture();
   }
   openDialog() {
     this.dialog.open(LogoutComponent);
@@ -37,14 +38,22 @@ export class NavbarComponent implements OnInit {
       console.log(this.userData);
       console.log(this.userData.imagePath
       )
-      console.log(this.apiImagePath+this.userData.imagePath)
+      console.log(this.apiImagePath+this.userData.imagePath);
+      localStorage.setItem('userImage' ,this.userData.imagePath ) ;
+    
     }
    })
+  
+
+}
 
 
 
+getPicture(){
+ this.mainImag=localStorage.getItem('userImage')
 
-  }
+  console.log(  this.mainImag)
+}
  
 
 

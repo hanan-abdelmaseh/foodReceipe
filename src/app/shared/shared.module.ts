@@ -30,6 +30,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
+
 //
 
 @NgModule({
@@ -43,7 +44,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     LogoutComponent,
     ProfileComponent,
     UpdateProfileComponent,
-   
+    
   ],
   imports: [
     CommonModule ,
@@ -61,8 +62,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ReactiveFormsModule,
     FormsModule,
     MatCardModule,
-
-    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
+    NgxSpinnerModule
+  
 
 
 
@@ -92,9 +93,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ReactiveFormsModule,
     FormsModule ,
     NoDataComponent,
-  
+    NgxSpinnerModule,
     MatCardModule,
-    NgxSpinnerModule 
+ 
   ]
 })
 export class SharedModule { }
